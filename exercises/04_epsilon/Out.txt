@@ -1,0 +1,64 @@
+
+=== [Task 1] Machine epsilon ===
+
+-- Method 1: Empirical calculation (via while-loop) --
+      float eps = 1.19209e-07
+     double eps = 2.22045e-16
+long double eps = 1.0842e-19
+-- Method 2: Library definition (from <limits>) --
+      float eps = 1.19209e-07
+     double eps = 2.22045e-16
+long double eps = 1.0842e-19
+-- Method 3: Theoretical value (via std::pow(2,-n) for n=23,52,63) --
+      float eps = 1.19209e-07
+     double eps = 2.22045e-16
+long double eps = 1.0842e-19
+-- Conclusion --
+All 3 computation methods agree on the machine epsilon of float, double and long double.
+
+=== [Task 2] Non-commutativity of addition ===
+
+-- Definitions --
+epsilon = std::pow(2,-52)
+   tiny = epsilon/2
+      a = 1 + tiny + tiny
+      b = tiny + tiny + 1
+-- Tests --
+a==b ?  false
+a>1  ?  false
+b>1  ?  true
+-- Investegation --
+               tiny = 0.00000000000000011
+a = 1 + tiny + tiny = 1.00000000000000000
+b = tiny + tiny + 1 = 1.00000000000000022
+-- Explanation --
+An explanation is given in main.cc
+
+=== [Task 3] Comparing doubles ===
+
+== Introduction ==
+-- Definitions --
+ d1 = 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1
+ d2 = 8*0.1
+-- Test of equality --
+d1==d2?  false
+-- Investegation --
+d1 = 0.79999999999999993
+d2 = 0.80000000000000004
+-- Explanation --
+Since 0.1 cannot be represented exactly as a 52-digit binary number, d1==d2 return False. 
+
+== Comparison using approx function ==
+-- Definitions --
+                 acc = 0.00000000100000000
+                 eps = 0.00000000100000000
+             |d1-d2| = 0.00000000000000022
+eps * Max(|d1|,|d2|) = 0.00000000100000000
+-- Test of individual conditions --
+|d1-d2|≤acc?                 true
+|d1-d2|≤eps*Max(|d1|,|d2|)?  true
+-- Combined test using approx function --
+|d1-d2|≤acc OR |d1-d2|≤eps*Max(|d1|,|d2|) ? true
+-- Conclusion --
+The approx function works as expected on the given example.
+

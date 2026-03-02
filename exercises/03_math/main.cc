@@ -24,9 +24,14 @@ int main(){
     std::cout << " log(i) = " << std::log(I)         << "\n\n";
 
     // Task 2: The Gamma function is computed for n=1..10
-    std::cout << "=== [Task 2] Computing Gamma(n) for n=1..10 ===\n";
-    for(int n=1;n<=10;n++){
-        std::cout << "Gamma("<<n<<") = " << sfuns::fgamma(n) << "\n";
+    std::cout << "=== [Task 2] Computing Gamma(n) and comparing to factorial ===\n";
+    for(int n=1; n<=10; n++){
+        double gamma_val = sfuns::fgamma(n);
+        double exact    = sfuns::factorial(n-1); // since gamma(n)=factorial(n-1) for positive integers
+
+        std::cout << "n = " << n << ":"
+                  << "  Gamma(n) = " << gamma_val
+                  << "  (n-1)! = " << exact << "\n";
     }
 
     // Task 3: The logarithm of the Gamma function is computed for n=1..1000

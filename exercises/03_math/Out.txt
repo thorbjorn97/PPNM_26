@@ -8,17 +8,17 @@ sqrt(2) = 1.41421
     i^i = (0.20788,0)
  log(i) = (0,1.5708)
 
-=== [Task 2] Computing Gamma(n) for n=1..10 ===
-Gamma(1) = 1
-Gamma(2) = 1
-Gamma(3) = 2
-Gamma(4) = 6
-Gamma(5) = 24
-Gamma(6) = 120
-Gamma(7) = 720
-Gamma(8) = 5040
-Gamma(9) = 40320
-Gamma(10) = 362880
+=== [Task 2] Computing Gamma(n) and comparing to factorial ===
+n = 1:  Gamma(n) = 1  (n-1)! = 1
+n = 2:  Gamma(n) = 1  (n-1)! = 1
+n = 3:  Gamma(n) = 2  (n-1)! = 2
+n = 4:  Gamma(n) = 6  (n-1)! = 6
+n = 5:  Gamma(n) = 24  (n-1)! = 24
+n = 6:  Gamma(n) = 120  (n-1)! = 120
+n = 7:  Gamma(n) = 720  (n-1)! = 720
+n = 8:  Gamma(n) = 5040  (n-1)! = 5040
+n = 9:  Gamma(n) = 40320  (n-1)! = 40320
+n = 10:  Gamma(n) = 362880  (n-1)! = 362880
 
 === [Task 3] Computing lnGamma(n) for n=10^i where i=0..5 ===
 lnGamma(1) = -1.09351e-08

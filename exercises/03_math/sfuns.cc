@@ -24,6 +24,13 @@ double lngamma(double x){
     return lnfgamma;
 }
 
+// A factorial function is defined (will be used to compute gamma exact for comparison)
+double factorial(int n){
+    double f = 1.0;
+    for(int i=1;i<=n;i++) f *= i;
+    return f;
+}
+
 }
 
 // end
