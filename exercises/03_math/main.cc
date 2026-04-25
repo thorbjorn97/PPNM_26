@@ -44,6 +44,3 @@ int main(){
 }
 
 // end
-
-// nb: note that you have to justify that the gamma result is correct by comparing it to the factorial (i.e. an exact calculation)
-// 
