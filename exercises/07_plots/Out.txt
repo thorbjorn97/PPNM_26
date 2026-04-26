@@ -1,0 +1,34 @@
+
+=== Task 1: error function approximation, erf(x) ===
+x = -2.0 | approx = -0.9953222650 | tabulated = -0.9953222650 | error = 0.0000000000  [ok]
+x = -1.5 | approx = -0.9661052664 | tabulated = -0.9661051465 | error = 0.0000001199  [ok]
+x = -1.0 | approx = -0.8427006897 | tabulated = -0.8427007929 | error = 0.0000001032  [ok]
+x = -0.5 | approx = -0.5205000163 | tabulated = -0.5204998778 | error = 0.0000001385  [ok]
+x = 0.0 | approx = 0.0000000010 | tabulated = 0.0000000000 | error = 0.0000000010  [ok]
+x = 0.5 | approx = 0.5205000163 | tabulated = 0.5204998778 | error = 0.0000001385  [ok]
+x = 1.0 | approx = 0.8427006897 | tabulated = 0.8427007929 | error = 0.0000001032  [ok]
+x = 1.5 | approx = 0.9661052664 | tabulated = 0.9661051465 | error = 0.0000001199  [ok]
+x = 2.0 | approx = 0.9953221396 | tabulated = 0.9953222650 | error = 0.0000001254  [ok]
+
+=== Task 2: gamma function approximation, Γ(x) ===
+x = 1.0 | approx = 1.0000000001 | tabulated = 1.0000000000 | error = 0.0000000001  [ok]
+x = 2.0 | approx = 1.0000000001 | tabulated = 1.0000000000 | error = 0.0000000001  [ok]
+x = 3.0 | approx = 2.0000000002 | tabulated = 2.0000000000 | error = 0.0000000002  [ok]
+x = 4.0 | approx = 6.0000000007 | tabulated = 6.0000000000 | error = 0.0000000007  [ok]
+
+=== Task 3: log gamma function approximation, ln(Γ(x)) ===
+x = 1 | approx = -0.0000000109 | tabulated = 0.0000000000 | error = 0.0000000109  [ok]
+x = 2 | approx = -0.0000000109 | tabulated = 0.0000000000 | error = 0.0000000109  [ok]
+x = 3 | approx = 0.6931471696 | tabulated = 0.6931471806 | error = 0.0000000109  [ok]
+x = 4 | approx = 1.7917594583 | tabulated = 1.7917594692 | error = 0.0000000109  [ok]
+x = 5 | approx = 3.1780538194 | tabulated = 3.1780538303 | error = 0.0000000109  [ok]
+x = 6 | approx = 4.7874917318 | tabulated = 4.7874917428 | error = 0.0000000109  [ok]
+x = 7 | approx = 6.5792512011 | tabulated = 6.5792512120 | error = 0.0000000109  [ok]
+x = 8 | approx = 8.5251613501 | tabulated = 8.5251613611 | error = 0.0000000109  [ok]
+x = 9 | approx = 10.6046028918 | tabulated = 10.6046029027 | error = 0.0000000109  [ok]
+x = 10 | approx = 12.8018274736 | tabulated = 12.8018274801 | error = 0.0000000065  [ok]
+x = 11 | approx = 15.1044125691 | tabulated = 15.1044125731 | error = 0.0000000040  [ok]
+x = 12 | approx = 17.5023078433 | tabulated = 17.5023078459 | error = 0.0000000026  [ok]
+x = 13 | approx = 19.9872144939 | tabulated = 19.9872144957 | error = 0.0000000017  [ok]
+x = 14 | approx = 22.5521638519 | tabulated = 22.5521638531 | error = 0.0000000012  [ok]
+x = 15 | approx = 25.1912211819 | tabulated = 25.1912211827 | error = 0.0000000009  [ok]
