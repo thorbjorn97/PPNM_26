@@ -1,0 +1,31 @@
+# "plot.gpi" source file: Uses gnuplot to fit and plot 'running time' vs 'number of threads'
+
+set terminal svg
+set output "times.svg"
+
+# Explicit white background
+set object 1 rectangle from screen 0,0 to screen 1,1 \
+    fillcolor rgb "white" behind
+
+# Text/axes styling
+set border lc rgb "black"
+set tics textcolor rgb "black"
+set xlabel textcolor rgb "black"
+set ylabel textcolor rgb "black"
+set key textcolor rgb "black"
+
+set xlabel "Number of threads"
+set ylabel "Real running time (s)"
+
+set grid
+
+a = 1
+b = 10
+
+f(x) = a + b/x
+
+fit f(x) "out.times" using 1:2 via a,b
+
+plot \
+    "out.times" using 1:2 with linespoints title "measured times", \
+    f(x) title "fit with a + b/x"
