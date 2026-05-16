@@ -1,0 +1,19 @@
+# "plot.gpi" gnuplot script:
+# Plots QR factorization timing data and fits cubic scaling
+
+set terminal pngcairo
+set output "qr_timing.png"
+
+set xlabel "Matrix size N"
+set ylabel "Time (s)"
+
+set title "QR decomposition scaling"
+
+set key top left
+
+f(x) = a*x**3
+
+fit f(x) "out.times.data" using 1:2 via a
+
+plot "out.times.data" using 1:2 with points title "Measured times", \
+     f(x) with lines title sprintf("Fit: %.3e N^3", a)
