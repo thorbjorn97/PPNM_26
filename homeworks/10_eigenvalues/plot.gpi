@@ -1,0 +1,65 @@
+# "plot.gpi" script: Generates all figures for Task B
+
+set terminal pdfcairo enhanced font "Arial,12"
+
+load "plot_vars.gp"
+
+# =====================================================
+# dr convergence
+# =====================================================
+
+set output "dr_convergence.pdf"
+
+set title sprintf("E0 convergence vs Δr (rmax fixed at %.2f)", rmax_fixed)
+set xlabel "Δr"
+set ylabel "E0 (Hartree)"
+set grid
+set xrange [0:*]
+set yrange [-0.51:*]
+
+set key top left
+
+plot \
+"dr_convergence.dat" u 1:2 w lp title "Numerical E0",\
+-0.5 w l title "Exact"
+
+
+# =====================================================
+# rmax convergence
+# =====================================================
+
+set output "rmax_convergence.pdf"
+
+set title sprintf("E0 convergence vs rmax (Δr fixed at %.2f)", dr_fixed)
+set xlabel "rmax"
+set ylabel "E0 (Hartree)"
+set grid
+set yrange [-0.51:*]
+
+set key top right
+
+plot \
+"rmax_convergence.dat" u 1:2 w lp title "Numerical E0",\
+-0.5 w l title "Exact"
+
+
+# =====================================================
+# wavefunctions
+# =====================================================
+
+set output "wavefunctions.pdf"
+
+set title "Radial hydrogen s-wave wavefunctions"
+set xlabel "r (Bohr)"
+set ylabel "f(r)"
+set grid
+
+set yrange [*:*]
+
+plot \
+"wavefunctions.dat" u 1:2 w l title "1s numerical", \
+"wavefunctions.dat" u 1:3 w l dt 2 lc rgb "black" title "1s exact", \
+"wavefunctions.dat" u 1:4 w l title "2s numerical", \
+"wavefunctions.dat" u 1:5 w l dt 3 lc rgb "black" title "2s exact", \
+"wavefunctions.dat" u 1:6 w l title "3s numerical", \
+"wavefunctions.dat" u 1:7 w l dt 4 lc rgb "black" title "3s exact"

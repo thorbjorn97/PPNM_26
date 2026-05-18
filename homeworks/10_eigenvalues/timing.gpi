@@ -1,0 +1,17 @@
+# "plot.gpi" script: Generates figure for Task C (scaling check)
+
+set terminal pdfcairo enhanced font "Arial,12"
+set output "timing.pdf"
+
+set title "Jacobi diagonalization scaling"
+set xlabel "Matrix size N"
+set ylabel "Time (s)"
+set grid
+
+f(x)=a*x**3
+
+fit f(x) "out.times.data" using 1:2 via a
+
+plot \
+"out.times.data" u 1:2 w lp title "Measured",\
+f(x) title sprintf("aN^3 (a=%g)",a)
