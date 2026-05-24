@@ -1,0 +1,102 @@
+# plot.gpi
+
+set terminal svg background rgb "white" enhanced
+set samples 3000
+
+# ============================================================
+# Harmonic oscillator
+# ============================================================
+set output "harmonic.svg"
+set title "Harmonic oscillator: numerical vs exact"
+set xlabel "t"
+set ylabel "u(t), u'(t)"
+
+plot "out_harmonic.dat" using 1:2 with lines title "u(t) numerical", \
+     cos(x) with lines title "cos(t)", \
+     "out_harmonic.dat" using 1:3 with lines title "u'(t)"
+
+# ============================================================
+# Damped oscillator (friction)
+# ============================================================
+set output "friction.svg"
+set title "Damped oscillator"
+set xlabel "t"
+set ylabel "theta(t), omega(t)"
+
+plot "out_friction.dat" using 1:2 with lines title "theta(t)", \
+     "out_friction.dat" using 1:3 with lines title "omega(t)"
+
+# ============================================================
+# Lotka–Volterra system
+# ============================================================
+set output "lotka.svg"
+set title "Lotka–Volterra system"
+set xlabel "t"
+set ylabel "population"
+
+plot "out_lotka.dat" using 1:2 with lines title "prey", \
+     "out_lotka.dat" using 1:3 with lines title "predator"
+
+# ============================================================
+# Planetary orbit - Newtonian circular
+# ============================================================
+set output "orbit_circular.svg"
+set title "Newtonian Circular Orbit"
+set xlabel "x"
+set ylabel "y"
+set size ratio -1
+
+plot "out_orbit_circular.dat" using (1/$2)*cos($1):(1/$2)*sin($1) \
+with lines notitle
+
+
+# ============================================================
+# Planetary orbit - Newtonian elliptical
+# ============================================================
+set output "orbit_elliptical.svg"
+set title "Newtonian Elliptical Orbit"
+set xlabel "x"
+set ylabel "y"
+set size ratio -1
+
+plot "out_orbit_elliptical.dat" using (1/$2)*cos($1):(1/$2)*sin($1) \
+with lines notitle
+
+
+# ============================================================
+# Planetary orbit - relativistic precession
+# ============================================================
+set output "orbit_relativistic.svg"
+set title "Relativistic Precession"
+set xlabel "x"
+set ylabel "y"
+set size ratio -1
+
+plot "out_orbit_relativistic.dat" using 1:2 \
+with lines notitle
+
+# ============================================================
+# Three-body problem - Figure 8 solution
+# ============================================================
+
+set size ratio -1
+set xrange [-1.4:1.4]
+set xtics -1.4,.2,1.4
+set yrange [-0.6:0.6]
+
+set output "orbit_figure_8.svg"
+set title "The stable planar periodic figure-8 three body solution (time-shifted cyclic representation)"
+#set title "Figure-8 choreographic solution of the three-body problem (time-shifted cyclic representation)"
+
+set colorbox
+
+set xlabel "x"
+set ylabel "y"
+set cblabel "Time t"
+
+#set tics out
+
+plot \
+"out_threebody.dat" using 2:3:1 with points palette pt 7 ps 0.5 notitle, \
+"out_threebody.dat" using 4:5:1 with points palette pt 7 ps 0.5 notitle, \
+"out_threebody.dat" using 6:7:1 with points palette pt 7 ps 0.5 notitle

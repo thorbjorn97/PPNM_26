@@ -1,0 +1,60 @@
+
+
+================================================================================
+Task A (6 points): Embedded rule Runge-Kutta ODE integrator
+================================================================================
+
+A.1 - RUNGE-KUTTA STEPPER
+----------------------------------------
+See ode.cc (implementation of rkstep12)
+
+A.2 - ADAPTIVE STEP-SIZE DRIVER
+----------------------------------------
+See ode.cc (implementation of driver)
+
+A.3 - DEBUGGING ROUTINES
+----------------------------------------
+IMPLEMENTATION: See models.cc (implementation of harmonic)
+
+DATAFILE CREATION:
+Datafile created: out_harmonic.dat
+
+DEBUGGING RESULT:
+Harmonic max error: 1.33315e-08
+Final step size (harmonic): adaptive (not stored)
+Harmonic energy drift: 1.40999e-08
+
+A.4 - REPRODUCTION OF EXAMPLES
+----------------------------------------
+IMPLEMENTATION: See models.cc (implementation of friction and lotka)
+
+DATAFILE CREATION:
+Datafile created: out_friction.dat
+Datafile created: out_lotka.dat
+
+REPRODUCTION RESULT:
+Friction final angle: 0.0200115
+Friction final angular velocity: 1.56782
+Lotka final (prey, predator): 0.713751, 0.0754078
+
+
+================================================================================
+Task B (3 points): Relativistic precession of planetary orbit
+================================================================================
+
+DEFINITION OF PLANETARY ORBIT ODEs
+----------------------------------------
+IMPLEMENTATION: See models.cc
+
+
+SOLUTION OF PLANETARY ORBIT ODEs
+----------------------------------------
+B1 circular orbit complete
+B2 Newtonian ellipse complete
+B3 relativistic orbit complete
+
+
+================================================================================
+Task C (1 points)
+================================================================================
+C complete
