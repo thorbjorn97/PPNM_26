@@ -1,0 +1,132 @@
+
+
+================================================================================
+Task A (6 points): Recursive open 4-point adaptive integrator
+================================================================================
+
+A.1 - IMPLEMENTATION OF INTEGRATOR
+----------------------------------------
+See integrate() in integrator.cc
+
+
+A.2 - TEST OF INTEGRATOR ON FUNCTIONS
+----------------------------------------
+
+Configuration: [a, b, acc, eps] = [0, 1, 0.001, 0.001] (as per instructions)
+Acc goal is met when: |Computed - Exact| <= acc + eps * |Computed|
+---------------------------------------------------------------------------
+Function         Computed       Exact          Real Error     Acc goal met?
+---------------------------------------------------------------------------
+sqrt(x)          0.6669539091   0.6666666667   2.872424e-04   YES
+1/sqrt(x)        1.9999613809   2.0000000000   3.861913e-05   YES
+sqrt(1-x^2)      0.7858124937   0.7853981634   4.143303e-04   YES
+log(x)/sqrt(x)   -3.9999128544  -4.0000000000  8.714555e-05   YES
+
+
+A.3 - IMPLEMENTATION OF ERF
+----------------------------------------
+See erf_integral() in erf.cc
+
+
+A.4 - PLOT OF IMPLEMENTED ERF
+----------------------------------------
+Datafile created: erf_function.dat
+Plotting: See plot.gpi and erf_function.png
+
+
+A.5 - COMPARISON WITH TABULATED VALUES
+----------------------------------------
+
+Configuration: [acc, eps] = [0.001, 0.001]
+Tabulated values: std::erf (inbuilt C++ standard)
+------------------------------------------------------------
+z         erf_integral(z)   std::erf(z)       Error
+------------------------------------------------------------
+0.0       0.0000000000      0.0000000000      0.000000e+00
+0.5       0.5204508336      0.5204998778      4.904419e-05
+1.0       0.8427299585      0.8427007929      2.916554e-05
+2.0       0.9949003185      0.9953222650      4.219465e-04
+3.0       0.9999786323      0.9999779095      7.228234e-07
+
+
+A.6 - CONVERGENCE STUDY FOR ERF(1.0)
+----------------------------------------
+Datafile created: erf_convergence.dat
+Plotting: See plot.gpi and erf_convergence.png
+
+
+================================================================================
+Task B (3 points): Variable transformation quadratures
+================================================================================
+
+B.1 - IMPLEMENTATION OF CLENSHAW-CURTIS INTEGRATOR
+----------------------------------------
+See integrate_cc() in cc_integrator.cc
+
+
+B.2 - PYTHON DATA PREPARATION
+----------------------------------------
+See compare.py
+
+
+B.3 - TEST ON INTEGRALS WITH INTEGRABLE DIVERGENCIES
+----------------------------------------
+
+Comparative test on integral: ∫ 1/sqrt(x) dx on [0, 1]
+---------------------------------------------------------------------------
+Method                Value           Error           Integrand Evaluations
+---------------------------------------------------------------------------
+integrate (ordinary): 1.9999995450    4.549863e-07    5232
+integrate_cc (CC):    1.9999999999    6.235990e-11    352
+quad (Python):        2.0000000000    1.554312e-15    231
+
+
+Comparative test on integral: ∫ ln(x)/sqrt(x) dx on [0, 1]
+---------------------------------------------------------------------------
+Method                Value           Error           Integrand Evaluations
+---------------------------------------------------------------------------
+integrate (ordinary): -3.9999780862   2.191382e-05    10816
+integrate_cc (CC):    -3.9999995548   4.451900e-07    30211560
+quad (Python):        -4.0000000000   8.526513e-14    315
+
+
+B.4 - GENERALIZATION TO INFINITE INTERVALS
+----------------------------------------
+See integrate_cc_inf() in cc_integrator.cc
+
+
+B.5 - TEST ON INFINITE LIMIT INTEGRAL
+----------------------------------------
+
+Comparative test on integral: ∫ exp(-x^2) dx on (-inf, +inf)
+---------------------------------------------------------------------------
+Method                Value           Error           Integrand Evaluations
+---------------------------------------------------------------------------
+integrate (ordinary): N/A             N/A             N/A
+integrate_cc_inf:     1.7724538299    2.096659e-08    1128
+quad (Python):        1.7724538509    0.000000e+00    270
+
+
+================================================================================
+Task C (1 point): Error estimate
+================================================================================
+
+C.1 - ADJUSTMENT OF INTEGRATOR TO PROVIDE ERROR ESTIMATE
+----------------------------------------
+See within adapt() in integrator.cc
+
+
+C.2 - EVALUATION OF ESTIMATED VS ACTUAL ERROR ON A DIFFICULT INTEGRAL
+----------------------------------------
+
+Evaluation on integral: ∫ ln(x) * cos(10 * pi * x) dx on [0, 1]
+---------------------------------------------------------------------------
+Target Acc  Value           Estim. Error    Actual Error    Ratio (Est/Act)
+---------------------------------------------------------------------------
+1.00e-02    -0.05375627     6.9328e-03      4.7674e-03      1.45
+1.00e-03    -0.04855090     4.8365e-04      4.3792e-04      1.10
+1.00e-04    -0.04898290     5.4671e-05      5.9214e-06      9.23
+1.00e-05    -0.04898877     4.9762e-06      4.8656e-08      102.27
+1.00e-06    -0.04898882     5.1745e-07      1.3892e-09      372.50
+1.00e-07    -0.04898882     5.3303e-08      3.0150e-10      176.79
+
