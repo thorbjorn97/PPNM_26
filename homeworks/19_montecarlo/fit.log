@@ -1,0 +1,112 @@
+
+
+*******************************************************************************
+Fri Jun 19 14:07:58 2026
+
+
+FIT:    data read from "errors_circle.dat" using 1:(log($3))
+        format = x:z
+        #datapoints = 19
+        residuals are weighted equally (unit weight)
+
+function used for fitting: log(ref_A(x))
+	ref_A(x) = a1 * x**(-0.5)
+fitted parameters initialized with current variable values
+
+   4 1.5307793310e+01  -7.09e-06  1.00e-04    6.484975e-01
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 15.3078
+rel. change during last iteration : -7.08917e-11
+
+degrees of freedom    (FIT_NDF)                        : 18
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.922189
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.850433
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a1              = 0.648497         +/- 0.1373       (21.17%)
+
+
+*******************************************************************************
+Fri Jun 19 14:07:58 2026
+
+
+FIT:    data read from "errors_qmc.dat" using 1:(log($2))
+        format = x:z
+        #datapoints = 19
+        residuals are weighted equally (unit weight)
+
+function used for fitting: log(f(x))
+	f(x) = a2 * x**(-0.5)
+fitted parameters initialized with current variable values
+
+   7 9.5847303739e+00  -8.97e-02  1.00e-06    1.121252e-01
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 9.58473
+rel. change during last iteration : -8.96758e-07
+
+degrees of freedom    (FIT_NDF)                        : 18
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.729716
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.532485
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a2              = 0.112125         +/- 0.01878      (16.75%)
+
+
+*******************************************************************************
+Fri Jun 19 14:07:58 2026
+
+
+FIT:    data read from "errors_qmc.dat" using 1:(log($3))
+        format = x:z
+        #datapoints = 19
+        residuals are weighted equally (unit weight)
+
+function used for fitting: log(g(x))
+	g(x) = a3 * x**(-0.5)
+fitted parameters initialized with current variable values
+
+   7 3.4683928309e+00  -8.48e-02  1.00e-06    1.126805e-01
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 3.46839
+rel. change during last iteration : -8.47739e-07
+
+degrees of freedom    (FIT_NDF)                        : 18
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.438963
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.192688
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a3              = 0.11268          +/- 0.01135      (10.08%)
+
+
+*******************************************************************************
+Fri Jun 19 14:07:58 2026
+
+
+FIT:    data read from "errors_qmc.dat" using 1:(log($4))
+        format = x:z
+        #datapoints = 19
+        residuals are weighted equally (unit weight)
+
+function used for fitting: log(h(x))
+	h(x) = a4 * x**(-1.0)
+fitted parameters initialized with current variable values
+
+   6 3.4339127803e+01  -5.51e-02  1.00e-06    1.668052e-01
+
+After 6 iterations the fit converged.
+final sum of squares of residuals : 34.3391
+rel. change during last iteration : -5.50943e-07
+
+degrees of freedom    (FIT_NDF)                        : 18
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.38121
+variance of residuals (reduced chisquare) = WSSR/ndf   : 1.90773
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a4              = 0.166805         +/- 0.05288      (31.7%)

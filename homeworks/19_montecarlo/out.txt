@@ -1,0 +1,101 @@
+
+
+================================================================================
+Task A (6 points): Plain Monte Carlo integration
+================================================================================
+
+Global configuration (for Tasks A, B, and C):
+N_samples          = 1000000
+N_samples_loop_min = 20
+N_samples_loop_max = 10000000
+LCG seed           = 42
+STL seed           = 42
+Halton seq base    = {2,3,5}
+
+
+A.1 - IMPLEMENTATION OF PLAIN MONTE CARLO MULTI-DIMENSIONAL INTEGRATOR
+----------------------------------------
+Plain Monte Carlo integrator: See plain_mc() in integrator_mc.cc
+LCG random number generator:  See lcg() in rng.h
+
+
+A.2 - TEST OF INTEGRATOR ON 2D INTEGRALS
+----------------------------------------
+Integral 1: ∫∫ √(1-x²) dxdy on [-1,1]² (Area of a unit circle)
+
+Exact value  = 3.141593
+MC result    = 3.141604
+Error        = 0.000011
+
+Integral 2: ∫∫ exp(-(x²+y²)) dxdy on [0,1]² (Square section of simple 2D Gaussian)
+
+Exact value  = 0.557746
+MC result    = 0.557920
+Error        = 0.000174
+
+
+A.4 - PLOT AND ANALYSIS OF ERROR SCALING
+----------------------------------------
+Integral used for testing: ∫∫ √(1-x²) dxdy on [-1,1]² (Area of a unit circle)
+
+Datafile created: errors_circle.dat
+Plot: See plot.gpi and error_scaling.png
+
+Conclusion: The fit indicates that the actual error indeed scales as 1/√N.
+
+
+A.5 - 3D ELLIPSOID VOLUME
+----------------------------------------
+Exact value  = 25.132741
+MC result    = 25.084896
+Error        = 0.047845
+
+
+================================================================================
+Task B (3 points): Quasi-random sequences
+================================================================================
+
+B.1 - IMPLEMENTATION OF QUASI-RANDOM SEQUENCE MULTI-DIMENSIONAL MONTE-CARLO INTEGRATOR
+----------------------------------------
+See quasi_mc() in integrator_qmc.cc
+
+
+B.2 - COMPARISON OF ERROR SCALING WITH PLAIN MONTE CARLO INTEGRATOR
+----------------------------------------
+STL random number generator:  See stl() in rng.h
+Halton sequence generator:    See halton() in rng.h
+
+Integral used for comparison: ∫∫∫ xyz dxdydz on [0,1]³ (Simple smooth function)
+
+Datafile created: errors_qmc.dat
+Plot: See plot.gpi and error_scaling_qmc.png
+
+Conclusion: The fits indicate that:
+- the estimated error scales as 1/√N for LCG and STL
+- the estimated error scales as 1/N for quasi-random sequences (Halton)
+
+
+B.3 - COMPARATIVE TEST ON DIFFICULT SINGULAR INTEGRAL
+----------------------------------------
+RESULTS:
+Exact value        = 1.393204
+
+Simple LCG         = 1.401972   error = 0.008768   error (est.) = 0.013025
+Standard library   = 1.381131   error = 0.012073   error (est.) = 0.005318
+Quasi-Random       = 1.387090   error = 0.006114   error (est.) = N/A
+
+
+================================================================================
+Task C (1 point): Stratified sampling
+================================================================================
+
+C.1 - IMPLEMENTATION OF STRATIFIED SAMPLING ROUTINE
+----------------------------------------
+See stratified_mc() in integrator_stratified.cc
+
+
+C.2 - TESTING ON DIFFICULT SINGULAR INTEGRAL
+----------------------------------------
+Stratified         = 1.412101   error = 0.018897   error (est.) = 0.012124
+
+

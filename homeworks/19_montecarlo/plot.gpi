@@ -1,0 +1,68 @@
+# plot.gpi
+
+set terminal svg background rgb "white" size 600,600
+set fit quiet
+set fit logfile "fit.log"
+
+set logscale xy
+
+# Enforce consistent scientific/exponential notation formatting ($10^x$)
+set format x "10^{%L}"
+set format y "10^{%L}"
+
+set xlabel "Number of sampling points N"
+set ylabel "Absolute error"
+set key top right
+
+# ==============================================================================
+# Task A: Plain Monte Carlo (Circle Area)
+# ==============================================================================
+set output "error_scaling.svg
+
+set title "Scaling of actual and estim. error for plain (LCG) MC integrator (using ∫∫ √(1-x²) dxdy on [-1,1]²)"
+
+# We fix the slope at exactly -0.5, and only let Gnuplot fit the vertical shift constant 'a1'
+ref_A(x) = a1 * x**(-0.5)
+a1 = 1.0
+
+# To prevent high-N data ignoring, we fit using log-transformed values
+fit log(ref_A(x)) "errors_circle.dat" using 1:(log($3)) via a1
+
+plot \
+"errors_circle.dat" using 1:3 w lp lc rgb "blue" pt 4 ps 0.8 lw 1.5 title "Actual error", \
+"errors_circle.dat" using 1:2 w lp lc rgb "skyblue" pt 5 ps 0.8 lw 1.5 title "Estim. error", \
+ref_A(x) lc rgb "blue" lw 2 dt 4 title "a/√N fit to Actual error"
+
+
+# ==============================================================================
+# Task B: Quasi-Random sequences comparison
+# ==============================================================================
+set output "error_scaling_qmc.svg"
+
+set title "Scaling of actual error for different MC integrators (using ∫∫∫ xyz dxdydz on [0,1]³)"
+
+
+# --- Reference Line 0: Pure MC Slope (Fixed at -0.5) ---
+f(x) = a2 * x**(-0.5)
+a2 = 1.0
+fit log(f(x)) "errors_qmc.dat" using 1:(log($2)) via a2
+
+# --- Reference Line 1: Pure MC Slope (Fixed at -0.5) ---
+g(x) = a3 * x**(-0.5)
+a3 = 1.0
+fit log(g(x)) "errors_qmc.dat" using 1:(log($3)) via a3
+
+# --- Reference Line 2: QMC Slope (Fixed at -1.0) ---
+h(x) = a4 * x**(-1.0)
+a4 = 1.0
+fit log(h(x)) "errors_qmc.dat" using 1:(log($4)) via a4
+
+plot \
+"errors_qmc.dat" using 1:2 w lp lc rgb "blue" pt 4 ps 0.8 lw 1.5 title "plain (LCG)", \
+"errors_qmc.dat" using 1:3 w lp lc rgb "light-green" pt 7 ps 0.8 lw 1.5 title "plain (STL)", \
+"errors_qmc.dat" using 1:4 w lp lc rgb "red" pt 9 ps 1.0 lw 1.5 title "quasi (Halton)", \
+f(x) lc rgb "blue" lw 2 title "a/√N fit to LCG", \
+g(x) lc rgb "light-green" lw 2 dt 2 title "a/√N fit to STL", \
+h(x) lc rgb "red" lw 2 dt 2 title "a/N fit to Halton"
+
+
