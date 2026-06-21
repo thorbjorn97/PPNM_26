@@ -1,0 +1,221 @@
+
+
+================================================================================
+Task A (6 points): Newton's method with numerical Jacobian and back-tracking line-search
+================================================================================
+
+A.1 - IMPLEMENTATION OF NEWTON'S METHOD WITH SIMPLE BACKTRACKING LINE-SEARCH
+----------------------------------------
+Newton's method (simple):  See newton() in 'rootfinder.cc'
+Jacobian estimation:       See jacobian() in 'rootfinder.cc'
+
+
+A.2 - DEBUGGING ON SIMPLE 1D AND 2D EQUATIONS
+----------------------------------------
+[1D TEST: x² - 2 = 0]
+    Initial guess:         1
+    Expected root:         1.4142135624
+    Found root:            1.4142135624
+    Residual norm ‖f(x)‖:  4.5008e-12    [1;32mPASS[0m
+    Iterations:            5
+    Exit reason:           Target acc reached (‖f(x)‖ < acc)
+
+[1D TEST: x - 1 = 0]
+    Initial guess:         5
+    Expected root:         1.0
+    Found root:            1.0000000000
+    Residual norm ‖f(x)‖:  0.0000e+00    [1;32mPASS[0m
+    Iterations:            2
+    Exit reason:           Target acc reached (‖f(x)‖ < acc)
+
+[2D TEST: x² + y² - 1 = 0, x - y = 0]
+    Initial guess:         (0.5, 0.8)
+    Expected root:         (0.7071067812, 0.7071067812)
+    Found root:            (0.7071067812, 0.7071067812)
+    Residual norm ‖f(x)‖:  5.9952e-15    [1;32mPASS[0m
+    Iterations:            5
+    Exit reason:           Target acc reached (‖f(x)‖ < acc)
+
+[2D TEST: x² + y² - 4 = 0, exp(x) + y - 1 = 0]
+    Initial guess:         (0.5, 0.5)
+    Expected root:         (-1.81626406882515057, 0.83736779989124773) or (1.00416873847465917, -1.72963728702586993)
+    Found root:            (-1.8162640688, 0.8373677999)
+    Residual norm ‖f(x)‖:  4.8963e-14    [1;32mPASS[0m
+    Iterations:            8
+    Exit reason:           Target acc reached (‖f(x)‖ < acc)
+
+
+A.3 - EXTREMUM(S) OF THE ROSENBROCK'S VALLEY FUNCTION
+----------------------------------------
+    Initial guess:             (-1.2, 1)
+    Expected extremum:         (1.0, 1.0)
+    Found extremum:            (1.0000000000, 1.0000000000)
+    Residual norm ‖f(x)‖:      1.7591e-11    [1;32mPASS[0m
+    Iterations:                531
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+
+A.4 - MINIMUM(S) OF THE HIMMELBLAU'S FUNCTION
+----------------------------------------
+[Himmelblau: Test 1]
+    Initial guess:             (3, 3)
+    Expected minimum:          (3.0000000000, 2.0000000000)
+    Found minimum:             (3.0000000000, 2.0000000001)
+    Residual norm ‖f(x)‖:      2.6392e-09    [1;32mPASS[0m
+    Iterations:                6
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 2]
+    Initial guess:             (-3, 3)
+    Expected minimum:          (-2.8051180870, 3.1313125183)
+    Found minimum:             (-2.8051180870, 3.1313125183)
+    Residual norm ‖f(x)‖:      1.1266e-14    [1;32mPASS[0m
+    Iterations:                4
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 3]
+    Initial guess:             (-3, -3)
+    Expected minimum:          (-3.7793102534, -3.2831859913)
+    Found minimum:             (-3.7793102534, -3.2831859913)
+    Residual norm ‖f(x)‖:      1.1799e-14    [1;32mPASS[0m
+    Iterations:                5
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 4]
+    Initial guess:             (3, -3)
+    Expected minimum:          (3.5844283403, -1.8481265270)
+    Found minimum:             (3.5844283403, -1.8481265270)
+    Residual norm ‖f(x)‖:      0.0000e+00    [1;32mPASS[0m
+    Iterations:                6
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+
+
+================================================================================
+Task B (3 points): Bound states of hydrogen atom with shooting method for boundary value problems
+================================================================================
+
+B.1 - THE LOWEST ROOT E0 OF M(E) = 0
+----------------------------------------
+    Initial guess:             -1 Hartree
+    Exact E0:                  -0.5 Hartree
+    Found E0:                  -0.4999750992 Hartree
+    Residual norm ‖M(E)‖:      2.7805e-13    [1;32mPASS[0m
+    Iterations:                10
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+
+B.2 - PLOT AND COMPARISON WITH EXACT RESULT
+----------------------------------------
+Datafile created: 'hydrogen_wavefunction.dat'
+Plot: See 'plot.gpi' and 'hydrogen_analysis.svg'
+
+
+B.3 - CONVERGENCE INVESTIGATION WRT R_MAX AND R_MIN
+----------------------------------------
+
+Convergence investigation of r_max (with fixed r_min = 1e-4)
+--------------------------------------------------------
+r_max         Calculated E0 [Ha]          Absolute Error
+--------------------------------------------------------
+3.0           -0.4239672878                   7.6033e-02
+5.0           -0.4964170059                   3.5830e-03
+8.0           -0.4999750992                   2.4901e-05
+10.0          -0.4999992613                   7.3867e-07
+15.0          -0.4999999954                   4.6254e-09
+--------------------------------------------------------
+
+Convergence investigation of r_min (with fixed r_max = 8.0)
+--------------------------------------------------------
+r_min         Calculated E0 [Ha]          Absolute Error
+--------------------------------------------------------
+1.0e-01       -0.5018257388                   1.8257e-03
+1.0e-02       -0.4999770810                   2.2919e-05
+1.0e-03       -0.4999751014                   2.4899e-05
+1.0e-04       -0.4999750992                   2.4901e-05
+1.0e-05       -0.4999750992                   2.4901e-05
+--------------------------------------------------------
+
+
+B.4 - CONVERGENCE INVESTIGATION WRT ODE ACC AND EPS
+----------------------------------------
+
+ODE tolerance investigation (with fixed r_min = 1e-4, r_max = 8.0)
+--------------------------------------------------------
+acc & eps     Calculated E0 [Ha]          Absolute Error
+--------------------------------------------------------
+1.0e-03       -0.4999750986                   2.4901e-05
+1.0e-04       -0.4999750986                   2.4901e-05
+1.0e-05       -0.4999750987                   2.4901e-05
+1.0e-06       -0.4999750992                   2.4901e-05
+1.0e-07       -0.4999751001                   2.4900e-05
+1.0e-08       -0.4999751003                   2.4900e-05
+--------------------------------------------------------
+
+
+================================================================================
+Task C (1 point): Quadratic interpolation line-search
+================================================================================
+
+C.1 - JACOBIAN OPTIMIZATION OF THE IMPLEMENTATION IN TASK A
+----------------------------------------
+See newton_broyden_quadratic() in 'rootfinder.cc'
+
+
+C.2 - QUADRATIC INTERPOLATION LINE-SEARCH IMPLEMENTATION
+----------------------------------------
+See newton_broyden_quadratic() in 'rootfinder.cc'
+
+
+C.3 - (NON-MANDATORY) TESTS OF THE OPTIMIZED ROOTFINDER
+----------------------------------------
+Test of the optimized rootfinder (Broyden's updates + quadratic interpolation line-search):
+
+[Rosenbrock Valley Test]
+    Initial guess:             (-1.2, 1)
+    Expected extremum:         (1.0, 1.0)
+    Found extremum:            (0.9999999998, 0.9999999995)
+    Residual norm ‖f(x)‖:      1.0277e-09    [1;32mPASS[0m
+    Iterations:                2130
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 1]
+    Initial guess:             (3, 3)
+    Expected minimum:          (3.0000000000, 2.0000000000)
+    Found minimum:             (3.0000000000, 2.0000000003)
+    Residual norm ‖f(x)‖:      9.2702e-09    [1;32mPASS[0m
+    Iterations:                8
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 2]
+    Initial guess:             (-3, 3)
+    Expected minimum:          (-2.8051180870, 3.1313125183)
+    Found minimum:             (-2.8051180870, 3.1313125183)
+    Residual norm ‖f(x)‖:      4.1662e-11    [1;32mPASS[0m
+    Iterations:                6
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 3]
+    Initial guess:             (-3, -3)
+    Expected minimum:          (-3.7793102534, -3.2831859913)
+    Found minimum:             (-3.7793102534, -3.2831859913)
+    Residual norm ‖f(x)‖:      3.4819e-11    [1;32mPASS[0m
+    Iterations:                8
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[Himmelblau: Test 4]
+    Initial guess:             (3, -3)
+    Expected minimum:          (3.5844283403, -1.8481265270)
+    Found minimum:             (3.5844283403, -1.8481265270)
+    Residual norm ‖f(x)‖:      2.4212e-09    [1;32mPASS[0m
+    Iterations:                11
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+
+[The Lowest root E0 of M(E) = 0]
+    Initial guess:             -1 Hartree
+    Exact E0:                  -0.5 Hartree
+    Found E0:                  -0.4999750992 Hartree
+    Residual norm ‖M(E)‖:      2.1183e-13    [1;32mPASS[0m
+    Iterations:                13
+    Exit reason:               Target acc reached (‖f(x)‖ < acc)
+

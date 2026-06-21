@@ -1,0 +1,50 @@
+# plot.gpi
+
+set terminal svg background rgb "white" size 800,600 enhanced
+set output 'hydrogen_analysis.svg'
+
+# Enforce consistent scientific/exponential notation formatting ($10^x$)
+set format x "10^{%L}"
+
+set multiplot title "Hydrogen Ground State: Shooting Method Analysis" font 'Verdana,14,Bold'
+
+set lmargin 12
+set rmargin 5
+
+# Exact analytical function
+y_exact(x) = x * exp(-x)
+
+# ---------------------------------------------------------------------
+# TOP PANEL: Wavefunction Comparison
+# ---------------------------------------------------------------------
+set tmargin at screen 0.89
+set bmargin at screen 0.53
+
+set format x ""    # Hide x-axis numbers on the top plot to avoid overlap
+set ylabel "Reduced Wavefunction y(r)" font 'Verdana,11'
+set grid
+set key top right box
+
+plot 'hydrogen_wavefunction.dat' using 1:2 with points pt 7 ps 0.7 lc rgb 'blue' title 'Numerical Solution', \
+     y_exact(x) with lines lw 2 lc rgb 'red' title 'Exact Solution: r e^{-r}'
+
+# ---------------------------------------------------------------------
+# BOTTOM PANEL: Absolute Deviation (Log Scale)
+# ---------------------------------------------------------------------
+set tmargin at screen 0.48
+set bmargin at screen 0.12
+
+set format x "%g"  # Restore x-axis numbers
+set xlabel "Radial distance r [Bohr radii]" font 'Verdana,11'
+set ylabel "Absolute Error |y_{num} - y_{exact}|" font 'Verdana,11'
+
+set logscale y
+set grid xtics ytics mytics mxtics
+
+set format y "10^{%L}"
+
+set xrange [0:8]
+
+plot 'hydrogen_wavefunction.dat' using 1:(abs($2-$3)) with points pt 7 ps 0.3 lc rgb 'dark-violet' title 'Absolute Deviation'
+
+unset multiplot
