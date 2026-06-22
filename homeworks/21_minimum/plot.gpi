@@ -1,0 +1,65 @@
+# plot.gpi
+
+# Setup terminal
+set terminal svg background rgb "white" size 800,700 enhanced font 'Verdana,12'
+set isosamples 150, 150 # Grid resolution for smooth contour curves
+
+# ========================================================== ===================
+# PLOT 1: Rosenbrock Valley
+# =============================================================================
+f(x,y) = (1.0 - x)**2 + 100.0 * (y - x**2)**2
+
+# Extract contours to temporary file
+set contour base
+set cntrparam level discrete 0.5, 2, 10, 50, 100, 200, 500, 1000
+unset surface
+set table 'rosen_contours_mesh.tmp'
+splot [-2.0:2.0] [-1.0:3.0] f(x,y)
+unset table
+
+# Analyze data to find the final point index dynamically
+stats 'rosenbrock_path.dat' using 1:2 nooutput
+
+# Create 2D plot with marked boundary points
+set output 'rosenbrock_convergence.svg'
+set title "Rosenbrock Valley Convergence Path" font "Verdana,14,Bold"
+set xlabel "X"
+set ylabel "Y"
+set grid lc rgb "#e0e0e0" lw 1
+set key center top
+
+plot [-2.0:2.0] [-1.0:3.0] \
+     'rosen_contours_mesh.tmp' with lines lc rgb "#bbbbbb" title 'Contours', \
+     'rosenbrock_path.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "blue" title "Minimizer Path", \
+     'rosenbrock_path.dat' every ::0::0 using 1:2 with points lc rgb "#ce1c16" pt 7 ps 1.1 title "Initial Guess", \
+     'rosenbrock_path.dat' every ::(STATS_records-1)::(STATS_records-1) using 1:2 with points lc rgb "#1db609" pt 9 ps 1.1 title "Final Accepted"
+
+# =============================================================================
+# PLOT 2: Himmelblau Function
+# =============================================================================
+g(x,y) = (x**2 + y - 11.0)**2 + (x + y**2 - 7.0)**2
+
+# Extract contours to temporary file
+set contour base
+set cntrparam level discrete 1, 5, 10, 30, 70, 130, 200, 300, 500
+unset surface
+set table 'himmel_contours_mesh.tmp'
+splot [-4.5:4.5] [-4.5:4.5] g(x,y)
+unset table
+
+# Analyze data to find the final point index dynamically
+stats 'himmelblau_path.dat' using 1:2 nooutput
+
+# Create 2D plot with marked boundary points
+set output 'himmelblau_convergence.svg'
+set title "Himmelblau Function Convergence Path" font "Verdana,14,Bold"
+set xlabel "X"
+set ylabel "Y"
+set grid lc rgb "#e0e0e0" lw 1
+set key center bottom
+
+plot [-4.5:4.5] [-4.5:4.5] \
+     'himmel_contours_mesh.tmp' with lines lc rgb "#bbbbbb" title 'Contours', \
+     'himmelblau_path.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "blue" title "Minimizer Path", \
+     'himmelblau_path.dat' every ::0::0 using 1:2 with points lc rgb "#ce1c16" pt 7 ps 1.1 title "Initial Guess", \
+     'himmelblau_path.dat' every ::(STATS_records-1)::(STATS_records-1) using 1:2 with points lc rgb "#1db609" pt 9 ps 1.1 title "Final Accepted"

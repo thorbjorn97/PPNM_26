@@ -1,0 +1,56 @@
+
+
+================================================================================
+Task A (6 points): Newton's method with numerical gradient, numerical Hessian matrix and back-tracking linesearch
+================================================================================
+
+A.1 - IMPLEMENTATION
+----------------------------------------
+See 'minimizer.cc'
+
+
+A.2 - TESTS
+----------------------------------------
+
+Minimizing Rosenbrock's Valley Function
+----------------------------------------
+Starting Position:
+   -1.200000
+    1.000000
+
+Found Minimum Position:
+    0.999836
+    0.999669
+Function Value at Minimum: 2.74128e-08
+Steps Taken:               20
+
+Minimizing Himmelblau's Function
+----------------------------------------
+Starting Position:
+   -0.270000
+   -0.920000
+
+Found Minimum Position:
+   -2.805120
+    3.131314
+Function Value at Minimum: 2.37497e-10
+Steps Taken:               28
+
+
+A.3 - (NON-MANDATORY) PLOTS
+----------------------------------------
+See 'plot.gpi', 'rosenbrock_convergence.svg' and 'himmelblau_convergence.svg'
+
+
+================================================================================
+Task B (3 points): Higgs boson discovery
+================================================================================
+Pending
+
+
+================================================================================
+Task C (1 point): Central instead of forward finite difference approximation for the derivatives
+================================================================================
+Pending
+
+
