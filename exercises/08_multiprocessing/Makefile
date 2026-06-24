@@ -7,7 +7,7 @@ CXXFLAGS = -std=c++23 -O2 -Wall -Wextra -pthread  # flags: C++23, optim. lvl 2, 
 
 # === Default target ===
 
-all: main # build main executable by default when 'make' is run without arguments
+all: main out out.times times.svg # build main executable by default when 'make' is run without arguments
 
 # === Build targets ===
 

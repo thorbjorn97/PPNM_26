@@ -3,13 +3,13 @@
 CXX = g++ # Use g++ as C++ compiler, so link with $(CXX)
 CXXFLAGS = -std=c++20 -O2 -Wall -Wextra # Flags: C++20, optim. lvl 2, all warnings
 
-.PHONY: all out plot clean # declare phony targets
+.PHONY: all run plot clean # declare phony targets
 
 # --- default target ---
-all: main
+all: main run plot
 
 # --- high-level targets ---
-out: main # duplicate stdout to both terminal and Out.txt using piping and tee command
+run: main # duplicate stdout to both terminal and Out.txt using piping and tee command
 	./main | tee Out.txt
 
 plot: main # generate .dat files and .png plots using gnuplot bash script plot_script.sh
