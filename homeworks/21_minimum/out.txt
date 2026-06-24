@@ -45,7 +45,29 @@ See 'plot.gpi', 'rosenbrock_convergence.svg' and 'himmelblau_convergence.svg'
 ================================================================================
 Task B (3 points): Higgs boson discovery
 ================================================================================
-Pending
+
+B.1 - PREPARATION
+----------------------------------------
+Successfully read 30 data points in 'higgs.data.txt' from the standard input
+Successfully defined the deviation function: D(m,Γ,A)=Σi[(F(Ei|m,Γ,A)-σi)/Δσi]^2
+
+B.2 - FIT OF BREIT-WIGNER TO HIGGS DATA
+----------------------------------------
+Initial Guess Parameters:
+  Mass (m):     125 GeV/c^2
+  Width (G):    2 GeV
+  Scale (A):    10
+
+Optimized Parameters Found:
+  Mass (m):     125.972 GeV/c^2
+  Width (G):    2.08639 GeV
+  Scale (A):    9.87646
+Final Chi-squared Deviation: 26.8695
+Steps Taken to Converge:     11
+
+Datafile generated: 'higgs_fit.dat'
+Datafile generated: 'higgs_data_clean.dat'
+Plot: See 'plot.gpi' and 'higgs_fit.svg'
 
 
 ================================================================================

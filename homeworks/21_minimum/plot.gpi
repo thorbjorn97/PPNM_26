@@ -63,3 +63,19 @@ plot [-4.5:4.5] [-4.5:4.5] \
      'himmelblau_path.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "blue" title "Minimizer Path", \
      'himmelblau_path.dat' every ::0::0 using 1:2 with points lc rgb "#ce1c16" pt 7 ps 1.1 title "Initial Guess", \
      'himmelblau_path.dat' every ::(STATS_records-1)::(STATS_records-1) using 1:2 with points lc rgb "#1db609" pt 9 ps 1.1 title "Final Accepted"
+
+# =============================================================================
+# PLOT 3: Higgs Boson Discovery Fit
+# =============================================================================
+set output 'higgs_fit.svg'
+set title "Higgs Boson Breit-Wigner Fitting Resonance" font "Verdana,14,Bold"
+set xlabel "Energy E [GeV]"
+set ylabel "Signal {/Symbol s}(E) [certain units]"
+set grid lc rgb "#e0e0e0" lw 1
+set key top right
+
+plot [98:162] [-4:10] \
+     'higgs_data_clean.dat' using 1:2:3 with yerrorbars lc rgb "#ce1c16" pt 7 ps 0.8 title "Experimental Data (+/- {/Symbol D}{/Symbol s})", \
+     'higgs_fit.dat' using 1:2 with lines lw 2.5 lc rgb "blue" title "Breit-Wigner Best Fit"
+
+# Written with the help of AI (Gemini 3)

@@ -41,3 +41,5 @@ minimizer_result minimize_newton(
 );
 
 } // namespace pp
+
+// Written with the help of AI (Gemini 3)

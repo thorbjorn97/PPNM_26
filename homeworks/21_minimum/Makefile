@@ -16,8 +16,8 @@ main: $(OBJ)
 	$(CXX) $(CXXFLAGS) -c $<
 
 
-run: main
-	./main | tee out.txt
+run: main # Task B: added < higgs.data.txt 2> log as per instructions 
+	./main < higgs.data.txt 2> log | tee out.txt
 
 plot:
 	gnuplot plot.gpi
@@ -25,8 +25,8 @@ plot:
 
 all: main run plot
 
-clean:
-	rm -f main *.o *.txt *.dat *.png *.svg *.tmp
+clean: # Task B: changed *.txt -> out.txt to avoid deleting higgs.data.txt
+	rm -f main *.o out.txt *.dat *.png *.svg *.tmp 
 
 
 dev: clean all
