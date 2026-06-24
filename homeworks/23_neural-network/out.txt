@@ -1,0 +1,70 @@
+
+
+================================================================================
+Task A (6 points)
+================================================================================
+
+A.1 - IMPLEMENTATION OF ANN
+----------------------------------------
+See 'ann.cc'
+
+Minimizer used: Newton's method with numerical gradient, numerical Hessian matrix and back-tracking linesearch as implemented in 'minimizer.cc' [From homework 21_minimum]
+
+
+A.2 - TABULATED FUNCTION DATA
+----------------------------------------
+Target function selected: g(x) = cos(5x-1) * exp(-x²)
+
+Successfully generated N=35 training data points {xk,yk}_{k=1..N} from g(x) uniformly on x=[-1, 1]
+
+Datafile created: 'training_points.dat'
+
+
+A.3 - TRAINING OF ANN
+----------------------------------------
+Created ANN with 5 hidden neurons
+
+Starting network training to approximate g(x) on given training data points...
+Training complete
+
+Minimizer steps taken: 107
+
+
+A.4 - EVALUATION OF ANN VS EXACT FUNCTION
+----------------------------------------
+Evaluating network on grid with 300 samples...
+Evaluation complete
+
+Datafile created: 'ann_interpolation.dat'
+
+
+A.5 - PLOT
+----------------------------------------
+See 'plot.gpi' and 'ann_results.svg'
+
+
+================================================================================
+Task B (3 points)
+================================================================================
+
+B.1 - MODIFICATION OF ANN
+----------------------------------------
+See 'ann.cc'
+
+
+B.2 - TABULATED FUNCTION DATA
+----------------------------------------
+Datafile created: 'ann_calculus.dat'
+
+
+B.3 - PLOT
+----------------------------------------
+See 'plot.gpi' and 'ann_results.svg'
+
+
+================================================================================
+Task C (1 point)
+================================================================================
+Pending
+
+
