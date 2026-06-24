@@ -5,30 +5,31 @@ CXXFLAGS = -std=c++23 -O2 \
            -Wall -Wextra -Wpedantic \
 		   -Wshadow \
            -Werror \
-		   #-Wconversion \
+		   -Wconversion \
 
-TARGET = main
+TARGET    = main
 
-OBJ = main.o lsfit.o
+OBJS      = main.o lsfit.o
+PLOT_SCR  = plot.gpi
+OUTPUTS   = out.txt *.dat *.png *.svg *.tmp *.log log
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET)
+all: $(TARGET) run plot
 
-main.o: main.cc lsfit.h matrix.h vector.h
-	$(CXX) $(CXXFLAGS) -c main.cc
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-lsfit.o: lsfit.cc lsfit.h matrix.h vector.h
-	$(CXX) $(CXXFLAGS) -c lsfit.cc
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) -c $<
 
 run: $(TARGET)
 	./$(TARGET) | tee out.txt
 
-plot: plot.gpi ThX.dat fit.dat
-	gnuplot plot.gpi
-
-all: $(TARGET) run plot
+plot: run
+	gnuplot $(PLOT_SCR)
 
 clean:
-	rm -f *.o main out.txt *.dat *.png *.svg *.gp *.pdf
+	rm -f $(TARGET) $(OBJS) $(OUTPUTS)
 
 dev: clean all
+
+.PHONY: all run plot clean dev

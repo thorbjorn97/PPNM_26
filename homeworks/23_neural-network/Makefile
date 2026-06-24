@@ -7,24 +7,31 @@ CXXFLAGS = -std=c++23 -O2 \
            -Werror \
 		   -Wconversion \
 
-OBJ = main.o minimizer.o ann.o target_function.o cc_integrator.o integrator.o
+TARGET    = main
 
-main: $(OBJ)
+OBJS      = main.o minimizer.o ann.o target_function.o cc_integrator.o integrator.o
+PLOT_SCR  = plot.gpi
+OUTPUTS   = out.txt log *.dat *.png *.svg *.tmp
+
+
+all: $(TARGET) run plot
+
+$(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c $<
 
-run: main
-	./main | tee out.txt
+run: $(TARGET)
+	./$(TARGET) | tee out.txt
 
-plot:
-	gnuplot plot.gpi
-
-all: main run plot
+plot: run
+	gnuplot $(PLOT_SCR)
+	rm -f *.tmp
 
 clean:
-	rm -f main *.o *.txt *.dat *.png *.svg *.tmp
-
+	rm -f $(TARGET) $(OBJS) $(OUTPUTS)
 
 dev: clean all
+
+.PHONY: all run plot clean dev

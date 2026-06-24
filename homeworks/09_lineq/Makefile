@@ -1,34 +1,41 @@
-CXX = g++
-CXXFLAGS = -std=c++23 -O2 \
-           -Wall -Wextra -Wpedantic \
-           -Wconversion -Wshadow \
-           -Werror
-TARGET = main
+# Makefile
 
-GENERATED = $(TARGET) \
-            out err \
-			out.txt \
-            out.times.data \
-            qr_timing.png \
-            fit.log fit.log.old
+CXX       = g++
+CXXFLAGS  = -std=c++23 -O2 \
+            -Wall -Wextra -Wpedantic \
+            -Wshadow \
+            -Werror \
+            -Wconversion
 
-$(TARGET): main.cc
-	$(CXX) $(CXXFLAGS) main.cc -o $(TARGET)
+TARGET    = main
+
+OBJS      = main.o
+PLOT_SCR  = plot.gpi
+OUTPUTS   = out.txt *.dat *.png *.svg *.tmp *.log log out err
+
+all: $(TARGET) run plot
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) -c $<
 
 run: $(TARGET)
-	./$(TARGET) | tee out.txt
+	@echo "Running matrix timing benchmark..."
+	> out.times.dat
+	for N in $$(seq 100 20 500); do \
+		time --format "$$N %e" --output out.times.dat --append \
+		./$(TARGET) -size $$N 1>out 2>err ; \
+	done
+	@echo "Benchmark data written to out.times.dat"
+
+plot: run
+	gnuplot $(PLOT_SCR) 2>&1 | tee -a out.txt
 
 clean:
-	rm -f $(GENERATED)
+	rm -f $(TARGET) $(OBJS) $(OUTPUTS)
 
-out.times.data: $(TARGET)
-	>$@
-	for N in $$(seq 100 20 500); do \
-		time --format "$$N %e" --output $@ --append \
-		./$(TARGET) -size $$N 1>out 2>err ;\
-	done
+dev: clean all
 
-qr_timing.png: out.times.data plot.gpi
-	gnuplot plot.gpi 2>&1 | tee -a out.txt
-
-dev: clean run out.times.data qr_timing.png
+.PHONY: all run plot clean dev

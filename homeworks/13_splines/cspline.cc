@@ -9,7 +9,7 @@ namespace pp {
 // cubic spline implementation using OOP with derivative and definite integral
 cspline::cspline(const vector& x_in,
                  const vector& y_in)
-    : n(x_in.size()),
+    : n(static_cast<int>(x_in.size())),
       x(x_in),
       y(y_in),
       b(n-1),

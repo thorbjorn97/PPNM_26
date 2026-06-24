@@ -272,7 +272,7 @@ int main(){
     }
     outC.close();
 
-    std::cout << "C complete\n";
+    std::cout << "C complete\n\n\n";
 
     return 0;
 

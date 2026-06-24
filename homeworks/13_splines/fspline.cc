@@ -12,7 +12,7 @@ std::function<double(double)>
 make_qspline(vector x,
              vector y)
 {
-    int n = x.size();
+    int n = static_cast<int>(x.size());
 
     vector h(n-1);
     vector p(n-1);
@@ -54,7 +54,7 @@ make_qspline(vector x,
             c = std::move(c)]
     (double z)
     {
-        int i = 0, j = x.size() - 1;
+        int i = 0, j = static_cast<int>(x.size()) - 1;
 
         while(j - i > 1){
             int mid = (i + j) / 2;

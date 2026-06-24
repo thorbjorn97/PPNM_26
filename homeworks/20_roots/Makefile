@@ -7,26 +7,29 @@ CXXFLAGS = -std=c++23 -O2 \
            -Werror \
 		   -Wconversion \
 
-OBJ = main.o rootfinder.o ode.o
+TARGET    = main
 
-main: $(OBJ)
+OBJS      = main.o rootfinder.o ode.o
+PLOT_SCR  = plot.gpi
+OUTPUTS   = out.txt log *.dat *.png *.svg *.tmp
+
+all: $(TARGET) run plot
+
+$(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c $<
 
+run: $(TARGET)
+	./$(TARGET) | tee out.txt
 
-run: main
-	./main | tee out.txt
-
-plot:
-	gnuplot plot.gpi
-
-all: main run plot
-
+plot: run
+	gnuplot $(PLOT_SCR)
 
 clean:
-	rm -f main *.o *.txt *.dat *.png *.svg
-
+	rm -f $(TARGET) $(OBJS) $(OUTPUTS)
 
 dev: clean all
+
+.PHONY: all run plot clean dev

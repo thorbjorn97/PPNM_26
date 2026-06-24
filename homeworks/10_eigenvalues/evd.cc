@@ -45,7 +45,7 @@ void Jtimes(matrix& A, int p, int q, double theta)
 // Task 3: Jacobi diagonalization
 // =========================================================
 std::tuple<vector,matrix> jacobi(matrix A){// "A" is a copy
-	int n = A.rows();
+	int n = static_cast<int>(A.rows());
     matrix V = matrix::identity(n);
     vector w(n);
 

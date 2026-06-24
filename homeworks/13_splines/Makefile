@@ -5,38 +5,31 @@ CXXFLAGS = -std=c++23 -O2 \
            -Wall -Wextra -Wpedantic \
            -Wshadow \
            -Werror \
-		   #-Wconversion \
+		   -Wconversion \
 
-TARGET = main
+TARGET    = main
 
-OBJ = main.o linterp.o qspline.o fspline.o cspline.o
+OBJS      = main.o linterp.o qspline.o fspline.o cspline.o
+PLOT_SCR  = plot.gpi
+OUTPUTS   = out.txt *.dat *.png *.svg *.tmp *.log log
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET)
+all: $(TARGET) run plot
 
-main.o: main.cc linterp.h qspline.h fspline.h vector.h
-	$(CXX) $(CXXFLAGS) -c main.cc
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-linterp.o: linterp.cc linterp.h vector.h
-	$(CXX) $(CXXFLAGS) -c linterp.cc
-
-qspline.o: qspline.cc qspline.h vector.h
-	$(CXX) $(CXXFLAGS) -c qspline.cc
-
-fspline.o: fspline.cc fspline.h vector.h
-	$(CXX) $(CXXFLAGS) -c fspline.cc
-
-cspline.o: cspline.cc cspline.h
-	$(CXX) $(CXXFLAGS) -c cspline.cc
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) -c $<
 
 run: $(TARGET)
 	./$(TARGET) | tee out.txt
-	gnuplot plot.gpi plot_dif.gpi
 
-plot:
-	gnuplot plot.gpi plot_dif.gpi
+plot: run
+	gnuplot $(PLOT_SCR)
 
 clean:
-	rm -f *.o $(TARGET) out.txt *.dat *.svg nodes.dat
+	rm -f $(TARGET) $(OBJS) $(OUTPUTS)
 
-dev: clean $(TARGET) run
+dev: clean all
+
+.PHONY: all run plot clean dev

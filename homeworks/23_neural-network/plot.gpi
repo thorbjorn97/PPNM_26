@@ -80,4 +80,4 @@ plot "ann_calculus.dat" using 1:(abs($5-$4) + 1e-8) with lines title "|g'(x) err
 unset logscale y
 unset multiplot
 
-# Written with the help of AI (Gemini 3.5 Flash)
+# Written with the help of AI (Gemini 3)

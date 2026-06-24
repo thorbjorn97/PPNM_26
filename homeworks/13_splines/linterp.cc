@@ -10,14 +10,15 @@ namespace pp {
 int binsearch(const vector& x, double z)
 {
     assert(z >= x[0] && z <= x[x.size()-1]);
-
+    int n = static_cast<int>(x.size());
+    
     int i = 0;
-    int j = x.size() - 1;
+    int j = n - 1;
 
     while(j - i > 1){
         int mid = (i + j) / 2;
 
-        if(z > mid)
+        if(z > x[mid])
             i = mid; 
         else
             j = mid;

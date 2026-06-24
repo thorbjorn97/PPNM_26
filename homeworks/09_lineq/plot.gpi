@@ -13,7 +13,7 @@ set key top left
 
 f(x) = a*x**3
 
-fit f(x) "out.times.data" using 1:2 via a
+fit f(x) "out.times.dat" using 1:2 via a
 
-plot "out.times.data" using 1:2 with points title "Measured times", \
+plot "out.times.dat" using 1:2 with points title "Measured times", \
      f(x) with lines title sprintf("Fit: %.3e N^3", a)

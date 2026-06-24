@@ -54,9 +54,9 @@ inline double frob_diff(const matrix& A, const matrix& B)
 // Matrix-matrix multiplication: C = A B
 matrix operator*(const matrix& A, const matrix& B)
 {
-    int n = A.rows();
-    int m = A.cols_count();
-    int p = B.cols_count();
+    int n = static_cast<int>(A.rows());
+    int m = static_cast<int>(A.cols_count());
+    int p = static_cast<int>(B.cols_count());
 
     matrix C(n,p);
 
@@ -101,7 +101,7 @@ matrix hydrogen_H(double rmax,double dr)
 // Sort helper
 void sort_eigen(vector& e, matrix& V)
 {
-    int n = e.size();
+    int n = static_cast<int>(e.size());
 
     std::vector<std::pair<double,int>> idx;
     idx.reserve(n);
