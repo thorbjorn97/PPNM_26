@@ -1,0 +1,346 @@
+# =============================================================================
+# 3.1: Rosenbrock Valley Convergence Path Comparison (Std vs Sym)
+# =============================================================================
+
+set terminal svg background rgb "white" size 700,650 enhanced font "Verdana,10"
+set output 'rosenbrock_convergence_base.svg'
+
+f(x,y) = (1.0 - x)**2 + 100.0 * (y - x**2)**2
+
+# --- SMOOTHING UPGRADES ---
+set isosamples 500, 500            # High density grid evaluation
+set contour base
+set cntrparam cubicspline          # Smooth contour paths via natural cubic splines
+set cntrparam level discrete 0.5, 2, 10, 50, 100, 200, 500, 1000
+unset surface
+
+# Cache the smooth contours into a temporary table grid
+set table 'rosen_contours_mesh.tmp'
+splot [-2.0:2.0] [-1.0:3.0] f(x,y)
+unset table
+# ---------------------------
+
+# --- METRIC ANALYSIS (DYNAMIC INDEXING) ---
+stats 'path_rose_std_base.dat' using 1:2 name 'STD' nooutput
+stats 'path_rose_sym_base.dat' using 1:2 name 'SYM' nooutput
+
+# --- GRAPHICS PROPERTIES ---
+set title "Rosenbrock Valley Convergence Path Comparison\n(Standard vs Symmetrized Broyden)" font "Verdana,13,Bold"
+set xlabel "X Coordinate" font "Verdana,11,Bold"
+set ylabel "Y Coordinate" font "Verdana,11,Bold"
+set grid lc rgb "#e2e2e2" lw 1
+set size ratio 1                  # Force 1:1 scaling so geometry doesn't distort
+set key right top box opaque font "Verdana,10"
+
+# --- VISUAL RENDERING PIPELINE ---
+plot [-2.0:2.0] [-1.0:3.0] \
+     'rosen_contours_mesh.tmp' with lines lc rgb "#b8b8b8" title 'Contours', \
+     \
+     'path_rose_std_base.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#d62728" title "Standard Broyden Path", \
+     'path_rose_sym_base.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#1f77b4" title "Symmetrized Broyden Path", \
+     \
+     'path_rose_std_base.dat' every ::0::0 using 1:2 with points lc rgb "#a916ce" pt 7 ps 1.4 title "Initial Guess (-1.2, 1.0)", \
+     \
+     'path_rose_std_base.dat' every ::(STD_records-1)::(STD_records-1) using 1:2 with points lc rgb "#000000" pt 1 ps 1.5 lw 2 title "Final Accepted (Std)", \
+     'path_rose_sym_base.dat' every ::(SYM_records-1)::(SYM_records-1) using 1:2 with points lc rgb "#000000" pt 2 ps 1.5 title "Final Accepted (Sym)"
+
+# =============================================================================
+# 3.2: Rosenbrock Efficiency Map (Side-by-Side Comparative Maps)
+# =============================================================================
+reset
+
+set terminal svg background rgb "white" size 1250,600 enhanced font "Verdana,10"
+set output 'rosenbrock_basin.svg'
+
+set multiplot
+
+# -----------------------------------------------------------------------------
+# GLOBAL SETUP (Applies to both subplots evenly)
+# -----------------------------------------------------------------------------
+unset colorbox
+set cbrange [0:5]
+
+set palette defined ( \
+      0.0 "#000000", 0.5 "#000000", \
+      0.5 "#1a9641", 1.5 "#1a9641", \
+      1.5 "#a6d96a", 2.5 "#a6d96a", \
+      2.5 "#fec44f", 3.5 "#fec44f", \
+      3.5 "#ec7014", 4.5 "#ec7014", \
+      4.5 "#d53e4f", 5.0 "#d53e4f" \
+)
+
+set size ratio 1
+set xlabel "Initial Guess X" font "Verdana,11,Bold"
+set tics out nomirror scale 1.0
+
+# -----------------------------------------------------------------------------
+# LEFT CANVAS: Standard Broyden 
+# -----------------------------------------------------------------------------
+set size 0.49, 0.93
+set origin -0.01, 0.04
+
+set title "Rosenbrock Valley Efficiency Map (Standard Broyden)" font "Verdana,13,Bold"
+set ylabel "Initial Guess Y" font "Verdana,11,Bold"
+unset key
+
+plot [-2.0:2.0] [-1.0:3.0] \
+     'rosen_basin.dat' using 1:2:3 with image pixels notitle, \
+     'rosen_contours_mesh.tmp' with lines lc rgb "#111111" lw 0.6 notitle
+
+
+# -----------------------------------------------------------------------------
+# RIGHT CANVAS: Symmetrized Broyden
+# -----------------------------------------------------------------------------
+# EXACT same size, shifted right. Leaves a comfortable gutter on the far right.
+set size 0.49, 0.93
+set origin 0.42, 0.04
+unset ylabel
+
+set title "Rosenbrock Valley Efficiency Map (Symmetrized Broyden)" font "Verdana,13,Bold"
+set key at screen 0.98, 0.89 top right box font "Verdana,10,Bold" maxrows 12 width -3
+
+plot [-2.0:2.0] [-1.0:3.0] \
+     'rosen_basin.dat' using 1:2:4 with image pixels notitle, \
+     'rosen_contours_mesh.tmp' with lines lc rgb "#111111" lw 0.6 title "Contours", \
+     \
+     NaN with points pt 5 lc rgb "#000000" title "Failed", \
+     NaN with points pt 5 lc rgb "#1a9641" title "≤ 15  steps", \
+     NaN with points pt 5 lc rgb "#a6d96a" title "16-30 steps", \
+     NaN with points pt 5 lc rgb "#fec44f" title "31-50 steps", \
+     NaN with points pt 5 lc rgb "#ec7014" title "51-80 steps", \
+     NaN with points pt 5 lc rgb "#d53e4f" title "80 <  steps"
+
+unset multiplot
+
+# =============================================================================
+# 4.1: Himmelblau Convergence Path Comparison (Std vs Sym)
+# =============================================================================
+reset
+
+set terminal svg background rgb "white" size 700,650 enhanced font "Verdana,10"
+set output 'himmelblau_convergence.svg'
+
+g(x,y) = (x**2 + y - 11.0)**2 + (x + y**2 - 7.0)**2
+
+# --- SMOOTHING UPGRADES ---
+set isosamples 100, 100            # High resolution sampling grid
+set contour base
+set cntrparam cubicspline          # Continuous curvature spline smoothing
+set cntrparam level discrete 1, 5, 10, 30, 70, 130, 200, 300, 500
+unset surface
+
+# Cache the smooth contours into a temporary table grid
+set table 'himmel_contours_mesh.tmp'
+splot [-4.5:4.5] [-4.5:4.5] g(x,y)
+unset table
+# ---------------------------
+
+# --- METRIC ANALYSIS (DYNAMIC INDEXING) ---
+# Read path sizes independently into unique namespace prefixes to avoid collisions
+stats 'path_himmel_std_1.dat' using 1:2 name 'STD1' nooutput
+stats 'path_himmel_sym_1.dat' using 1:2 name 'SYM1' nooutput
+stats 'path_himmel_std_2.dat' using 1:2 name 'STD2' nooutput
+stats 'path_himmel_sym_2.dat' using 1:2 name 'SYM2' nooutput
+
+# --- GRAPHICS PROPERTIES ---
+set title "Himmelblau Convergence Path Comparison\n(Standard vs Symmetrized Broyden)" font "Verdana,13,Bold"
+set xlabel "X Coordinate" font "Verdana,11,Bold"
+set ylabel "Y Coordinate" font "Verdana,11,Bold"
+set grid lc rgb "#e2e2e2" lw 1
+set size ratio 1
+set key right bottom box opaque maxrows 12 font "Verdana,10"
+
+# --- VISUAL RENDERING PIPELINE ---
+plot [-4.5:4.5] [-4.5:4.5] \
+     'himmel_contours_mesh.tmp' with lines lc rgb "#b8b8b8" title 'Contours', \
+     \
+     'path_himmel_std_1.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#d62728" title "Standard Broyden Path", \
+     'path_himmel_sym_1.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#1f77b4" title "Symmetrized Broyden Path", \
+     'path_himmel_std_2.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#d62728" notitle, \
+     'path_himmel_sym_2.dat' using 1:2 with linespoints lw 2.5 pt 7 ps 0.8 lc rgb "#1f77b4" notitle, \
+     \
+     'path_himmel_std_1.dat' every ::0::0 using 1:2 with points lc rgb "#a916ce" pt 7 ps 1.4 title "Initial Guess (1.0, 1.0)", \
+     'path_himmel_std_2.dat' every ::0::0 using 1:2 with points lc rgb "#17c04a" pt 7 ps 1.4 title "Initial Guess (-0.27, -0.92)", \
+     \
+     'path_himmel_std_1.dat' every ::(STD1_records-1)::(STD1_records-1) using 1:2 with points lc rgb "#000000" pt 1 ps 1.5 lw 2 title "Final Accepted (Std)", \
+     'path_himmel_sym_1.dat' every ::(SYM1_records-1)::(SYM1_records-1) using 1:2 with points lc rgb "#000000" pt 2 ps 1.5 title "Final Accepted (Sym)", \
+     'path_himmel_std_2.dat' every ::(STD2_records-1)::(STD2_records-1) using 1:2 with points lc rgb "#000000" pt 1 ps 1.5 lw 2 notitle, \
+     'path_himmel_sym_2.dat' every ::(SYM2_records-1)::(SYM2_records-1) using 1:2 with points lc rgb "#000000" pt 2 ps 1.5 notitle
+
+# =============================================================================
+# 4.3: Himmelblau Basins of Attraction Map (Side-by-Side Comparative Maps)
+# =============================================================================
+reset
+
+set terminal svg background rgb "white" size 1700,600 enhanced font "Verdana,10"
+set output 'himmelblau_basins.svg'
+
+set multiplot
+
+# -----------------------------------------------------------------------------
+# GLOBAL SETUP (Applies to both subplots evenly)
+# -----------------------------------------------------------------------------
+unset colorbox
+set cbrange [0:5]
+
+# Discrete, blur-free stepped palette mapping root IDs 0 to 5
+set palette defined ( \
+      0.0 "#000000", 0.5 "#000000", \
+      0.5 "#1f77b4", 1.5 "#1f77b4", \
+      1.5 "#ff7f0e", 2.5 "#ff7f0e", \
+      2.5 "#9467bd", 3.5 "#9467bd", \
+      3.5 "#17becf", 4.5 "#17becf" \
+)
+
+set size ratio 1
+set xlabel "Initial Guess X" font "Verdana,11,Bold"
+set tics out nomirror scale 1.0
+
+# -----------------------------------------------------------------------------
+# PANEL 1: Natural Geometric Basins (Steepest Descent Baseline Reference)
+# -----------------------------------------------------------------------------
+set size 0.31, 0.95
+set origin 0.005, 0.04
+
+set title "A: Natural Geometric Himmelblau Basins Map\n(Steepest Descent Baseline Reference)" font "Verdana,12,Bold"
+set ylabel "Initial Guess Y" font "Verdana,11,Bold"
+unset key
+
+# Uses column 5 for the analytical basin
+plot [-4.5:4.5] [-4.5:4.5] \
+     'himmel_basins.dat' using 1:2:5 with image pixels notitle, \
+     'himmel_contours_mesh.tmp' with lines lc rgb "#222222" lw 0.5 notitle
+
+
+# -----------------------------------------------------------------------------
+# PANEL 2: Standard Broyden Convergence Zones
+# -----------------------------------------------------------------------------
+set size 0.31, 0.95
+set origin 0.305, 0.04
+unset ylabel # hide inner y-labels
+
+set title "B: Operational Himmelblau Basins Map\n(Standard Broyden)" font "Verdana,12,Bold"
+
+# Uses column 3 for Standard Broyden
+plot [-4.5:4.5] [-4.5:4.5] \
+     'himmel_basins.dat' using 1:2:3 with image pixels notitle, \
+     'himmel_contours_mesh.tmp' with lines lc rgb "#222222" lw 0.5 notitle
+
+
+# -----------------------------------------------------------------------------
+# PANEL 3: Symmetrized Broyden Convergence Zones
+# -----------------------------------------------------------------------------
+set size 0.31, 0.95
+set origin 0.60, 0.04
+
+set title "C: Operational Himmelblau Basins Map\n(Symmetrized Broyden)" font "Verdana,12,Bold"
+
+set key at screen 0.99, 0.88 top right box font "Verdana,10,Bold" maxrows 12 width -2
+
+# Uses column 4 for Symmetrized Broyden
+plot [-4.5:4.5] [-4.5:4.5] \
+     'himmel_basins.dat' using 1:2:4 with image pixels notitle, \
+     'himmel_contours_mesh.tmp' with lines lc rgb "#222222" lw 0.5 title "Contours", \
+     \
+     NaN with points pt 5 lc rgb "#000000" title "Failed", \
+     NaN with points pt 5 lc rgb "#1f77b4" title "Root 1 {/Courier (+,+)}", \
+     NaN with points pt 5 lc rgb "#ff7f0e" title "Root 2 {/Courier (+,-)}", \
+     NaN with points pt 5 lc rgb "#9467bd" title "Root 3 {/Courier (-,+)}", \
+     NaN with points pt 5 lc rgb "#17becf" title "Root 4 {/Courier (-,-)}" \
+
+unset multiplot
+
+# =========================================================================
+# 5.3: Fit of Breit-Wigner to Higgs Data (Std vs Sym)
+# =========================================================================
+reset
+
+set terminal svg background rgb "white" size 700,650 enhanced font "Verdana,12"
+set output 'higgs_fit.svg'
+
+# Configuration
+set title "Fit of Breit-Wigner to Higgs Data\n(Standard vs Symmetrized Broyden)" font "Verdana,14,Bold"
+set xlabel "Energy E [GeV]" font "Verdana,12,Bold"
+set ylabel "Signal {/Symbol s}(E) [arbitrary units]" font "Verdana,12,Bold"
+set grid lc rgb "#e0e0e0" lw 1
+
+set tics out nomirror scale 1.0
+
+# Position the legend safely out of the way of the resonance peak
+set key top right box opaque
+
+# Define explicit plot ranges
+set xrange [98:162]
+set yrange [-4:10]
+
+# Plotting the experimental scatter points alongside BOTH fits.
+plot 'higgs_data_clean.dat' using 1:2:3 with yerrorbars lc rgb "#444444" pt 7 ps 0.8 title "Experimental Data (+/- {/Symbol D}{/Symbol s})", \
+     'higgs_fit_std.dat'    using 1:2 title "Standard Broyden Fit" with lines lw 3 lc rgb "#d62728", \
+     'higgs_fit_sym.dat'    using 1:2 title "Symmetrized Broyden Fit" with lines lw 3 dt 2 lc rgb "#1f77b4"
+
+# =========================================================================
+# 5.4: Convergence Profile for Higgs Parameter Optimization (Std vs Sym)
+# =========================================================================
+reset
+set terminal svg background rgb "white" size 700,650 enhanced font "Verdana,10"
+set output "higgs_convergence.svg"
+
+set multiplot
+
+# -------------------------------------------------------------------------
+# 1. THE MAIN PLOT: The Full Step Marathon
+# -------------------------------------------------------------------------
+set size 1.0, 1.0
+set origin 0.0, 0.0
+
+set title "Deviation Function Convergence Profile for Higgs Parameter Optimization\n(Standard vs Symmetrized Broyden)" font "Verdana,14,Bold"
+set xlabel "Iteration Step" font "Verdana,12,Bold"
+set ylabel "Deviation Function D(m,Γ,A)" font "Verdana,12,Bold"
+
+set yrange [26.86:27]
+set grid xtics ytics lc rgb "#e0e0e0" lw 1
+
+# Place primary legend
+set key top inside right box opaque width -1
+
+# Plotting from separate files allows the Symmetrized line to naturally stop
+plot "higgs_dev_std.dat" using 1:2 title "Standard Broyden" with lines lc rgb "#d62728" lw 2.5, \
+     "higgs_dev_sym.dat" using 1:2 title "Symmetrized Broyden" with lines lc rgb "#1f77b4" lw 2.5
+
+# -------------------------------------------------------------------------
+# 2. THE INSET PLOT: Zoomed close-up of Steps 0 to 25
+# -------------------------------------------------------------------------
+set size 0.45, 0.55
+set origin 0.40, 0.20
+
+# Add a solid white background rectangle matching the exact canvas bounds 
+# of the inset to completely hide the main plot's underlying gridlines.
+set object 1 rectangle from graph 0,0 to graph 1,1 behind fillcolor rgb "white" fillstyle solid 1.0 noborder
+
+# Style adjustments
+set title "Early Dynamics (Steps 0-25)"
+set xtics font "Verdana,9"
+set ytics font "Verdana,9"
+set grid xtics ytics lc rgb "#ececec" lw 1
+
+# Unset main labels so they don't bleed into the inset canvas
+unset xlabel
+unset ylabel
+unset key 
+
+# Hard boundaries for the close-up zoom
+set xrange [0:25]
+set yrange [25:45]
+
+# Plotting from separate files here ensures the line terminates exactly at its final step
+plot "higgs_dev_std.dat" using 1:2 with lines lc rgb "#d62728" lw 2, \
+     "higgs_dev_sym.dat" using 1:2 with lines lc rgb "#1f77b4" lw 2
+
+unset multiplot
+
+unset object 1
+
+# =============================================================================
+# CLEANUP TEMPORARY FILES
+# =============================================================================
+system "rm -f rosen_contours_mesh.tmp himmel_contours_mesh.tmp"

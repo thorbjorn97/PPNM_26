@@ -1,0 +1,307 @@
+
+
+================================================================================
+TASK 1 - Implementation of Quasi-Newton mininization with Broyden's update (Standard Broyden)
+================================================================================
+[INFO] See broyden() in 'broyden.h' and 'broyden.cc'.
+[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).
+
+
+================================================================================
+TASK 2 - Implementation of Quasi-Newton mininization with Symmetrized Broyden's update (Symmetrized Broyden)
+================================================================================
+[INFO] See broyden_symmetrized() in 'broyden.h' and 'broyden.cc'.
+[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).
+
+
+================================================================================
+3.1 - Tests on Rosenbrock Valley Function in 2D
+================================================================================
+
+--------------------------------------------------------------------------------
+3.1 - BASIC TEST ON 2D ROSENBROCK
+--------------------------------------------------------------------------------
+[INFO] Solver configuration:
+    Initial point, x_start:        (-1.2000000000, 1.0000000000)
+    Target tolerance, acc:         1.0000e-05
+[INFO] Known analytical minimum on 2D Rosenbrock:
+    Known minimum point, x:        (1.0000000000, 1.0000000000)
+    Known minimum value, fx:       0.0000000000
+
+[RUNNING] Standard Broyden Solver...
+--> Results:
+    Found minimum point, x:        (0.9999917758, 0.9999835429)
+    Found minimum value, fx:       0.0000000001
+    Final gradient norm, ‖∇fx‖:    1.5992e-06
+    Algorithm steps taken:         35
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+    Log file written:              path_rose_std_base.dat
+
+[RUNNING] Symmetrized Broyden Solver...
+--> Results:
+    Found minimum point, x:        (0.9999910427, 0.9999820704)
+    Found minimum value, fx:       0.0000000001
+    Final gradient norm, ‖∇fx‖:    2.2895e-08
+    Algorithm steps taken:         34
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+    Log file written:              path_rose_sym_base.dat
+
+[INFO] Plot script: See 3.1 in 'plot.gpi'.
+[INFO] Plot: See 'rosenbrock_convergence_base.png'.
+
+
+--------------------------------------------------------------------------------
+3.2 - PERFORMANCE FROM SELECTED INITIAL POINTS
+--------------------------------------------------------------------------------
+[INFO] Solver configuration:
+    Target tolerance, acc:         1.0000e-05
+[INFO] Known analytical minimum on 2D Rosenbrock:
+    Known minimum point, x:        (1.0000000000, 1.0000000000)
+    Known minimum value, fx:       0.0000000000
+
+[INFO] Here I use 'std::chrono' to time the solvers. In PHASE 5 I will use GNU time.
+[INFO] Step data is logged to 'path_rose_std_#.dat' with # = 1, 2, 3, 4.
+
+========================================================================================================================
+Initial point  Algorithm  Final fx      Final ‖∇fx‖   Steps  Time (s)      Convergence status
+========================================================================================================================
+[-1.2, 1.00]   Standard   1.854190e-04  6.764577e-11  35     1.5992e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.573550e-04  8.025628e-11  34     2.2895e-08    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[-0.0, -0.0]   Standard   1.482310e-04  8.049287e-11  34     2.5952e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.296670e-04  7.977839e-11  25     6.8569e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[2.00, 2.00]   Standard   1.964660e-04  3.500720e-11  45     3.0189e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  2.249020e-04  8.086484e-11  46     8.3666e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[99.0, 99.0]   Standard   7.913200e-05  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+               Symmetric  4.741200e-05  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+========================================================================================================================
+
+
+--------------------------------------------------------------------------------
+3.3 - ROSENBROCK CONVERGENCE EFFICIENCY GRID SWEEP
+--------------------------------------------------------------------------------
+[RUNNING] Mapping Rosenbrock Convergence Efficiency Grid (Std vs Sym)...
+--> Rosenbrock basin mapped successfully.
+[INFO] Basin mapping data saved to 'rosen_basin.dat'.
+[INFO] Failure data saved to 'himmel_failures.dat'.
+
+[INFO] Plot script: See 3.3 in 'plot.gpi'.
+[INFO] Plot: See 'rosenbrock_basin.svg'.
+
+==================================================
+ROSENBROCK SWEEP SUMMARY (10000 points total)
+==================================================
+Performance Tier (ID)  | Standard  | Symmetrized
+--------------------------------------------------
+Failed       (0)       | 162       | 13
+≤ 15  steps  (1)       | 481       | 702
+16-30 steps  (2)       | 3401      | 4950
+31-50 steps  (3)       | 3981      | 4305
+51-80 steps  (4)       | 1897      | 25
+80 <  steps  (5)       | 78        | 5
+==================================================
+
+
+--------------------------------------------------------------------------------
+TASK 4 - Tests on Hummelblau Function
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+4.1 - BASIC TEST ON HIMMELBLAU
+--------------------------------------------------------------------------------
+[INFO] Solver configuration:
+    Initial point, x_start:        (1.0000000000, 1.0000000000)
+    Target tolerance, acc:         1.0000e-05
+[INFO] Expected analytical minimum on Himmelblau given initial point:
+    Expected minimum point, x:     (3.0000000000, 2.0000000000)
+    Expected minimum value, fx:    0.0000000000
+
+[RUNNING] Standard Broyden Solver...
+--> Results:
+    Found minimum point, x:        (2.9999999167, 2.0000000149)
+    Found minimum value, fx:       0.0000000000
+    Final gradient norm, ‖∇fx‖:    3.6796e-06
+    Algorithm steps taken:         24
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+
+[RUNNING] Symmetrized Broyden Solver...
+--> Results:
+    Found minimum point, x:        (2.9999999687, 2.0000000010)
+    Found minimum value, fx:       0.0000000000
+    Final gradient norm, ‖∇fx‖:    1.9093e-07
+    Algorithm steps taken:         8
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+
+
+--------------------------------------------------------------------------------
+4.2 - PERFORMANCE FROM SELECTED INITIAL POINTS
+--------------------------------------------------------------------------------
+[INFO] Solver configuration:
+    Target tolerance, acc:         1.0000e-05
+
+[INFO] Analytical global minima on Himmelblau:
+    Point in quadrant (+,+):       (3.0000000000, 2.0000000000)
+    Point in quadrant (-,+):       (3.5844283403, -1.8481265270)
+    Point in quadrant (-,-):       (-2.8051180870, 3.1313125183)
+    Point in quadrant (+,-):       (-3.7793102534, -3.2831859913)
+    Function value (in all):       0.0000000000
+
+[INFO] Here I use 'std::chrono' to time the solvers. In PHASE 5 I will use GNU time.
+[INFO] Step data is logged to 'path_himmel_std_#.dat' with # = 1, 2, 3, 4.
+
+========================================================================================================================
+Initial point  Algorithm  Final fx      Final ‖∇fx‖   Steps  Time (s)      Convergence status
+========================================================================================================================
+[1.00, 1.00]   Standard   1.709230e-04  2.354496e-13  24     3.6796e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  4.539800e-05  3.571544e-14  8      1.9093e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[-0.27, -0.92] Standard   9.536600e-05  4.156708e-13  32     2.9343e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  5.353800e-05  1.604042e-13  14     1.8700e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[0.00, 0.00]   Standard   6.947600e-05  1.011012e-13  13     1.6003e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  4.710300e-05  3.343430e-14  10     3.7926e-09    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[0.09, 2.88]   Standard   1.307660e-04  1.483634e-15  50     3.1127e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.905620e-04  6.373346e-14  18     9.1167e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+------------------------------------------------------------------------------------------------------------------------
+[99.00, 99.00] Standard   9.351400e-05  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+               Symmetric  6.291800e-05  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+========================================================================================================================
+
+[INFO] Plot script: See 4.2 in 'plot.gpi'.
+[INFO] Plot: See 'himmelblau_convergence.svg'.
+
+
+--------------------------------------------------------------------------------
+4.3 - HIMMELBLAU BASINS OF ATTRACTION GRID SWEEP
+--------------------------------------------------------------------------------
+[RUNNING] Mapping Himmelblau Basins of Attraction Grid Sweep (Std vs Sym)...
+ --> Himmelblau basins mapped successfully.
+[INFO] Mapping data saved to 'himmel_basins.dat'.
+[INFO] Failure data saved to 'himmel_failures.dat'.
+
+[INFO] Plot script: See 4.3 in 'plot.gpi'.
+[INFO] Plot: See 'himmelblau_basins.svg'.
+
+==================================================
+HIMMELBLAU SWEEP SUMMARY (10000 points total)
+==================================================
+Method Outcome (ID)    | Standard    | Symmetrized
+--------------------------------------------------
+Failed           (0)   | 4           | 18
+Root 1           (1)   | 3223        | 3177
+Root 2           (2)   | 2145        | 2201
+Root 3           (3)   | 2454        | 2401
+Root 4           (4)   | 2174        | 2203
+---------------------------------------------------
+Fidelity Score           68.66%        71.47%
+===================================================
+
+[INFO] The fidelity score measures the % of initial points that converged to
+their mathematically expected (steepest descent) natural geometric basin.
+
+
+================================================================================
+TASK 5 -  Higgs parameter optimization
+================================================================================
+[INFO] This task is inspired by Task B in homework 21_minimum.
+
+--------------------------------------------------------------------------------
+5.1 - PREPARATION OF HIGGS DATA FROM FILE
+--------------------------------------------------------------------------------
+[INFO] Successfully read 30 data points in 'higgs.data.txt' from the standard input.
+[INFO] Successfully defined the deviation function: D(m,Γ,A)=Σi[(F(Ei|m,Γ,A)-σi)/Δσi]^2
+
+
+--------------------------------------------------------------------------------
+5.2 - FIT OF BREIT-WIGNER TO HIGGS DATA
+--------------------------------------------------------------------------------
+[INFO] Solver Configuration:
+    Initial mass (m):              125.00 GeV/c^2
+    Initial width (Γ):             2.00 GeV
+    Initial scale (A):             10.00
+    Target tolerance, acc:         1.0000e-05
+
+[RUNNING] Standard Broyden Solver...
+--> Results:
+    Mass (m):                      125.9721867099 ± 0.2496321437
+    Width (Γ):                     2.0863299322 ± 2.1376641396
+    Scale (A):                     9.8762138739 ± 10.2821704077
+    Final minimized D(m,Γ,A):      26.8695117787
+    Algorithm steps taken:         734
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+    Log file written:              path_higgs_std.log
+
+[RUNNING] Symmetrized Broyden Solver...
+--> Results:
+    Mass (m):                      125.9721867085 ± 0.2496416546
+    Width (Γ):                     2.0863306723 ± 2.1460878589
+    Scale (A):                     9.8762149413 ± 10.3236991606
+    Final minimized D(m,Γ,A):      26.8695117787
+    Algorithm steps taken:         20
+    Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+    Log file written:              path_higgs_sym.log
+
+
+--------------------------------------------------------------------------------
+5.3 - PLOT OF FIT CURVES
+--------------------------------------------------------------------------------
+[INFO] Breit-Wigner curve generated for standard solver fit:  'higgs_fit_std.dat'
+[INFO] Breit-Wigner curve generated for symmetrized solver fit:  'higgs_fit_sym.dat'
+[INFO] Experimental data saved to:  'higgs_data_clean.dat'
+
+[INFO] Plot script: See 5.3 in 'plot.gpi'.
+[INFO] Plot: See 'higgs_fit.svg'.
+
+
+--------------------------------------------------------------------------------
+5.4 - PLOT OF CONVERGENCE HISTORY
+--------------------------------------------------------------------------------
+[INFO] Convergence history data (standard solver):  'higgs_dev_std.dat'
+[INFO] Convergence history data (symmetrized solver):  'higgs_dev_sym.dat'
+
+[INFO] Plot script: See 5.4 in 'plot.gpi'.
+[INFO] Plot: See 'higgs_convergence.svg'.
+
+
+================================================================================
+TASK 6 - Dimensional Benchmarking on the Generalized Rosenbrock Function
+================================================================================
+
+--------------------------------------------------------------------------------
+6.1 - DIMENSIONAL SCALING PERFORMANCE
+--------------------------------------------------------------------------------
+[INFO] The Generalized Rosenbrock function is implemented in 'rose_benchmark.h'.
+
+======================================================================
+Dim(N)  Method      Function Calls      Steps       Target Deviation  
+======================================================================
+2       Standard    260                 35          1.8398e-05        
+        Symmetric   123                 34          2.0043e-05        
+----------------------------------------------------------------------
+4       Standard    80900               5872        3.9379e-05        
+        Symmetric   428                 56          2.3446e-05        
+----------------------------------------------------------------------
+8       Standard    91975               5164        3.6631e-05        
+        Symmetric   888                 81          3.0710e-05        
+----------------------------------------------------------------------
+16      Standard    165446              6382        3.8347e-05        
+        Symmetric   2123                113         3.0974e-05        
+----------------------------------------------------------------------
+32      Standard    306399              7301        3.9405e-05        
+        Symmetric   6950                199         2.9113e-05        
+----------------------------------------------------------------------
+
+[INFO] Function Calls tracks the total number of times the solver
+evaluates f(x) during the optimization process.
+
+
+--------------------------------------------------------------------------------
+6.2 - EXTERNAL EXECUTION TIME BENCHMARKING (VIA GNU TIME)
+--------------------------------------------------------------------------------
+[INFO] Source code: See Makefile.
+[INFO] Plot script: See Makefile.
+[INFO] Plot: See 'plot_timing.svg'.
+
