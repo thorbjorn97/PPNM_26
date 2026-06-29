@@ -124,7 +124,7 @@ int main(){
             double F = A / (std::pow(E - m, 2) + std::pow(gamma, 2) / 4.0);
             
             double deviation = (F - signal[i]) / error[i];
-            sum_sq_dev += std::pow(deviation, 2);
+            sum_sq_dev += deviation * deviation;
         }
         return sum_sq_dev;
     };

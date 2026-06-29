@@ -27,5 +27,3 @@ struct ann {
 };
 
 } // namespace pp
-
-// Written with the help of AI (Gemini 3.5 Flash)

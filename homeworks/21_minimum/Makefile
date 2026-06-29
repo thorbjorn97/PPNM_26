@@ -24,7 +24,7 @@ $(TARGET): $(OBJS)
 run: $(TARGET) # Task B: added < higgs.data.txt 2> log as per instructions 
 	./$(TARGET) < higgs.data.txt 2> log | tee out.txt
 
-plot: run # Task A+B: added rm -f *.tmp to remove temporary files
+plot: # Task A+B: added rm -f *.tmp to remove temporary files
 	gnuplot $(PLOT_SCR)
 	rm -f *.tmp
 

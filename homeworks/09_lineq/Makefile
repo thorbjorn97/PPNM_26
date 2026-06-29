@@ -30,7 +30,7 @@ run: $(TARGET)
 	done
 	@echo "Benchmark data written to out.times.dat"
 
-plot: run
+plot:
 	gnuplot $(PLOT_SCR) 2>&1 | tee -a out.txt
 
 clean:

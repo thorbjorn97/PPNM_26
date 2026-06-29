@@ -113,5 +113,3 @@ double ann::response_integral(double x) const {
 
 
 } // namespace pp
-
-// Written with the help of AI (Gemini 3.5 Flash)

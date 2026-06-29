@@ -1,3 +1,5 @@
+// qr.h
+
 #pragma once
 
 #include <stdexcept>

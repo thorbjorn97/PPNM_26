@@ -25,7 +25,7 @@ $(TARGET): $(OBJS)
 run: $(TARGET)
 	./$(TARGET) | tee out.txt
 
-plot: run
+plot:
 	gnuplot $(PLOT_SCR)
 	rm -f *.tmp
 
