@@ -11411,7 +11411,7 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(288.49,32.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Verdana" >A: Natural Geometric Himmelblau Basins Map</tspan></text>
+		<text><tspan font-family="Verdana" >Natural Geometric Himmelblau Basins Map</tspan></text>
 	</g>
 	<g transform="translate(288.49,50.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
 		<text><tspan font-family="Verdana" >(Steepest Descent Baseline Reference)</tspan></text>
@@ -22784,7 +22784,7 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(790.99,32.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Verdana" >B: Operational Himmelblau Basins Map</tspan></text>
+		<text><tspan font-family="Verdana" >Quasi-Newton Himmelblau Basins Map</tspan></text>
 	</g>
 	<g transform="translate(790.99,50.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
 		<text><tspan font-family="Verdana" >(Standard Broyden)</tspan></text>
@@ -34216,7 +34216,7 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(1292.49,32.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Verdana" >C: Operational Himmelblau Basins Map</tspan></text>
+		<text><tspan font-family="Verdana" >Quasi-Newton Himmelblau Basins Map</tspan></text>
 	</g>
 	<g transform="translate(1292.49,50.41)" stroke="none" fill="black" font-family="Verdana" font-size="12.00"  text-anchor="middle">
 		<text><tspan font-family="Verdana" >(Symmetrized Broyden)</tspan></text>

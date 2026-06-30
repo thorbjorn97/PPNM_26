@@ -202,7 +202,7 @@ vector broyden_symmetrized(std::function<double(const vector&)> f, vector x, dou
     broyden_final_gnorm = 0.0;
     broyden_exit_reason = "Max iterations exceeded or forced break";
 
-    // Open the stream ONCE in standard output mode (which defaults to truncation!)
+    // Open the stream ONCE in standard output mode
     std::ofstream log_stream;
     if (!broyden_log_filename.empty()) {
         log_stream.open(broyden_log_filename); 
@@ -218,7 +218,7 @@ vector broyden_symmetrized(std::function<double(const vector&)> f, vector x, dou
     while (g.norm() > acc && broyden_steps < max_steps) {
         broyden_steps++; // Increment step counter at the beginning of each loop
 
-        // Calculate Newton's step delta_x = -B * ∇ϕ using matmul
+        // Calculate Newton's step Δx = -B * ∇ϕ using matmul
         matrix G(n, 1);
         G[0] = g;
         matrix BG = matmul(B, G);

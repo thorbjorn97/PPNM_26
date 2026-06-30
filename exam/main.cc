@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
     // Accuracy tolerances applied in all tests
     double acc_tol = 1e-5;     // tolerance for the gradient norm ‖∇fx‖
-    double coord_tol = 1e-3;   // tolerance for coordinate distance to true minimum
+    double coord_tol = 1e-3;   // tolerance for coordinate distance to true/expected minimum
 
     // [For Task 6] EXTERNAL BENCHMARKING / TIMING EXECUTION MODE
     // Used by the Makefile loop to capture raw execution times via automated scripts.
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     section("TASK 1 - Implementation of Quasi-Newton mininization with Broyden's update (Standard Broyden)");
 
     std::cout << "[INFO] See broyden() in 'broyden.h' and 'broyden.cc'.\n"
-              << "[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).\n";
+              << "[INFO] The function follows the details in The Book (Chapters 9.3 and 10.2.3).\n";
 
     // ================================================================================
     // TASK 2 - Implementation of Quasi-Newton mininization with Symmetrized Broyden's update (Symmetrized Broyden)
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
     section("TASK 2 - Implementation of Quasi-Newton mininization with Symmetrized Broyden's update (Symmetrized Broyden)");
     
     std::cout << "[INFO] See broyden_symmetrized() in 'broyden.h' and 'broyden.cc'.\n"
-              << "[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).\n";
+              << "[INFO] The function follows the details in The Book (Chapters 9.3 and 10.2.3).\n";
 
     // ================================================================================
     //                  PHASE 2: TEST ON FUNCTIONS WITH KNOWN MINIMA
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
     std::cout << "    Known minimum value, fx:       " << f_rose_2d(x_known_base_rose_2d) << "\n\n";
 
     // Note
-    std::cout << "[INFO] Here I use 'std::chrono' to time the solvers. In PHASE 5 I will use GNU time.\n";
+    std::cout << "[INFO] Here I use 'std::chrono' to time the solvers. In Task 6 I will use GNU time.\n";
     std::cout << "[INFO] Step data is logged to 'path_rose_std_#.dat' with # = 1, 2, 3, 4.\n\n";
 
     // Table Header Printing
@@ -839,7 +839,7 @@ int main(int argc, char* argv[]) {
 
     // STANDARD BROYDEN
     // ----------------
-    broyden_log_filename = "path_higgs_std.log";
+    broyden_log_filename = "path_higgs_std.dat";
     std::cout << "[RUNNING] Standard Broyden Solver...\n";
     vector res_higgs_std = broyden(higgs_deviation, start_higgs, acc_tol);
     vector unc_std = compute_uncertainties(res_higgs_std, broyden_final_z);
@@ -856,7 +856,7 @@ int main(int argc, char* argv[]) {
 
     // SYMMETRIZED BROYDEN
     // -------------------
-    broyden_log_filename = "path_higgs_sym.log";
+    broyden_log_filename = "path_higgs_sym.dat";
     std::cout << "[RUNNING] Symmetrized Broyden Solver...\n";
     vector res_higgs_sym = broyden_symmetrized(higgs_deviation, start_higgs, acc_tol);
     vector unc_sym = compute_uncertainties(res_higgs_sym, broyden_final_z);
@@ -946,8 +946,8 @@ int main(int argc, char* argv[]) {
     };
 
     // Load the raw step histories using the parser
-    auto history_std = load_log_history("path_higgs_std.log");
-    auto history_sym = load_log_history("path_higgs_sym.log");
+    auto history_std = load_log_history("path_higgs_std.dat");
+    auto history_sym = load_log_history("path_higgs_sym.dat");
 
     // Compute deviations and write them out cleanly
     save_deviation_history("higgs_dev_std.dat", history_std);

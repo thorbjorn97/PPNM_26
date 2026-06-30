@@ -4,14 +4,14 @@
 TASK 1 - Implementation of Quasi-Newton mininization with Broyden's update (Standard Broyden)
 ================================================================================
 [INFO] See broyden() in 'broyden.h' and 'broyden.cc'.
-[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).
+[INFO] The function follows the details in The Book (Chapters 9.3 and 10.2.3).
 
 
 ================================================================================
 TASK 2 - Implementation of Quasi-Newton mininization with Symmetrized Broyden's update (Symmetrized Broyden)
 ================================================================================
 [INFO] See broyden_symmetrized() in 'broyden.h' and 'broyden.cc'.
-[INFO] The function follows the guidance in The Book (Chapters 9.3 and 10.2.3).
+[INFO] The function follows the details in The Book (Chapters 9.3 and 10.2.3).
 
 
 ================================================================================
@@ -59,23 +59,23 @@ TASK 2 - Implementation of Quasi-Newton mininization with Symmetrized Broyden's 
     Known minimum point, x:        (1.0000000000, 1.0000000000)
     Known minimum value, fx:       0.0000000000
 
-[INFO] Here I use 'std::chrono' to time the solvers. In PHASE 5 I will use GNU time.
+[INFO] Here I use 'std::chrono' to time the solvers. In Task 6 I will use GNU time.
 [INFO] Step data is logged to 'path_rose_std_#.dat' with # = 1, 2, 3, 4.
 
 ========================================================================================================================
 Initial point  Algorithm  Final fx      Final ‖∇fx‖   Steps  Time (s)      Convergence status
 ========================================================================================================================
-[-1.2, 1.00]   Standard   1.854190e-04  6.764577e-11  35     1.5992e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  1.573550e-04  8.025628e-11  34     2.2895e-08    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[-1.2, 1.00]   Standard   1.071230e-04  6.764577e-11  35     1.5992e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  9.412700e-05  8.025628e-11  34     2.2895e-08    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[-0.0, -0.0]   Standard   1.482310e-04  8.049287e-11  34     2.5952e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  1.296670e-04  7.977839e-11  25     6.8569e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[-0.0, -0.0]   Standard   9.595500e-05  8.049287e-11  34     2.5952e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  2.070190e-04  7.977839e-11  25     6.8569e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[2.00, 2.00]   Standard   1.964660e-04  3.500720e-11  45     3.0189e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  2.249020e-04  8.086484e-11  46     8.3666e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[2.00, 2.00]   Standard   2.020950e-04  3.500720e-11  45     3.0189e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.982650e-04  8.086484e-11  46     8.3666e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[99.0, 99.0]   Standard   7.913200e-05  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
-               Symmetric  4.741200e-05  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+[99.0, 99.0]   Standard   1.178640e-04  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+               Symmetric  3.916200e-05  inf           4      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
 ========================================================================================================================
 
 
@@ -154,20 +154,20 @@ TASK 4 - Tests on Hummelblau Function
 ========================================================================================================================
 Initial point  Algorithm  Final fx      Final ‖∇fx‖   Steps  Time (s)      Convergence status
 ========================================================================================================================
-[1.00, 1.00]   Standard   1.709230e-04  2.354496e-13  24     3.6796e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  4.539800e-05  3.571544e-14  8      1.9093e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[1.00, 1.00]   Standard   2.217300e-04  2.354496e-13  24     3.6796e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.110660e-04  3.571544e-14  8      1.9093e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[-0.27, -0.92] Standard   9.536600e-05  4.156708e-13  32     2.9343e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  5.353800e-05  1.604042e-13  14     1.8700e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[-0.27, -0.92] Standard   1.479850e-04  4.156708e-13  32     2.9343e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  9.670500e-05  1.604042e-13  14     1.8700e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[0.00, 0.00]   Standard   6.947600e-05  1.011012e-13  13     1.6003e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  4.710300e-05  3.343430e-14  10     3.7926e-09    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[0.00, 0.00]   Standard   7.803700e-05  1.011012e-13  13     1.6003e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.084890e-04  3.343430e-14  10     3.7926e-09    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[0.09, 2.88]   Standard   1.307660e-04  1.483634e-15  50     3.1127e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-               Symmetric  1.905620e-04  6.373346e-14  18     9.1167e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+[0.09, 2.88]   Standard   2.695260e-04  1.483634e-15  50     3.1127e-06    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
+               Symmetric  1.796480e-04  6.373346e-14  18     9.1167e-07    [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
 ------------------------------------------------------------------------------------------------------------------------
-[99.00, 99.00] Standard   9.351400e-05  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
-               Symmetric  6.291800e-05  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+[99.00, 99.00] Standard   1.186980e-04  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
+               Symmetric  8.142800e-05  inf           5      -nan          [1;31m[FAIL][0m (Divergence: NaN or Inf encountered)
 ========================================================================================================================
 
 [INFO] Plot script: See 4.2 in 'plot.gpi'.
@@ -232,7 +232,7 @@ TASK 5 -  Higgs parameter optimization
     Final minimized D(m,Γ,A):      26.8695117787
     Algorithm steps taken:         734
     Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-    Log file written:              path_higgs_std.log
+    Log file written:              path_higgs_std.dat
 
 [RUNNING] Symmetrized Broyden Solver...
 --> Results:
@@ -242,7 +242,7 @@ TASK 5 -  Higgs parameter optimization
     Final minimized D(m,Γ,A):      26.8695117787
     Algorithm steps taken:         20
     Convergence status:            [1;32m[PASS][0m (Convergence achieved: ‖∇f(x)‖ < acc)
-    Log file written:              path_higgs_sym.log
+    Log file written:              path_higgs_sym.dat
 
 
 --------------------------------------------------------------------------------

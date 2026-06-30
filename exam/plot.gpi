@@ -202,7 +202,7 @@ set tics out nomirror scale 1.0
 set size 0.31, 0.95
 set origin 0.005, 0.04
 
-set title "A: Natural Geometric Himmelblau Basins Map\n(Steepest Descent Baseline Reference)" font "Verdana,12,Bold"
+set title "Natural Geometric Himmelblau Basins Map\n(Steepest Descent Baseline Reference)" font "Verdana,12,Bold"
 set ylabel "Initial Guess Y" font "Verdana,11,Bold"
 unset key
 
@@ -219,7 +219,7 @@ set size 0.31, 0.95
 set origin 0.305, 0.04
 unset ylabel # hide inner y-labels
 
-set title "B: Operational Himmelblau Basins Map\n(Standard Broyden)" font "Verdana,12,Bold"
+set title "Quasi-Newton Himmelblau Basins Map\n(Standard Broyden)" font "Verdana,12,Bold"
 
 # Uses column 3 for Standard Broyden
 plot [-4.5:4.5] [-4.5:4.5] \
@@ -233,7 +233,7 @@ plot [-4.5:4.5] [-4.5:4.5] \
 set size 0.31, 0.95
 set origin 0.60, 0.04
 
-set title "C: Operational Himmelblau Basins Map\n(Symmetrized Broyden)" font "Verdana,12,Bold"
+set title "Quasi-Newton Himmelblau Basins Map\n(Symmetrized Broyden)" font "Verdana,12,Bold"
 
 set key at screen 0.99, 0.88 top right box font "Verdana,10,Bold" maxrows 12 width -2
 

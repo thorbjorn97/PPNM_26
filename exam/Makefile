@@ -30,7 +30,7 @@ plot:
 
 # Execution time profile generation using external timer via GNU Time
 # (runs multiple times for low dimensions and takes average since /usr/bin/time cannot measure nanosecond-scale precision)
-MAX_DIM = 10  #  Maximum dimension to profile (reduce for faster execution time)
+MAX_DIM = 32  #  Maximum dimension to profile (reduce for faster execution time)
 timing_results.dat: main
 	@rm -f timing_std.dat timing_sym.dat
 	@for d in $$(seq 2 $(MAX_DIM)); do \
